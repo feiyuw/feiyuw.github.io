@@ -59,6 +59,86 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-08-06T06:14:45.000Z"><a href="/2014/08/06/工作在持续集成上/">2014-08-06</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/06/工作在持续集成上/">工作在持续集成上</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&emsp;&emsp;最近这几年一直在与持续集成及其相关的工作打交道，包括我自己的日常工作，目前也在这个工作模式里面进行。这篇博客想通过一天的工作来聊一下这种工作模式，它的优点以及弊端。</p>
+<h2 id="什么是持续集成">什么是持续集成</h2>
+<p>&emsp;&emsp;摘录自Martin Fowler的<a href="http://www.martinfowler.com/articles/continuousIntegration.html" target="_blank" rel="external">大作</a>：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre>Continuous Integration <span class="keyword">is</span> a software development practice <span class="keyword">where</span> members <span class="keyword">of</span> a team integrate their 
+work frequently, usually each person integrates <span class="keyword">at</span> least daily - leading <span class="keyword">to</span> multiple integrations 
+per <span class="property">day</span>. Each integration <span class="keyword">is</span> verified <span class="keyword">by</span> an automated build (including test) <span class="keyword">to</span> detect integration 
+errors <span class="keyword">as</span> quickly <span class="keyword">as</span> possible. Many teams find <span class="keyword">that</span> this approach leads <span class="keyword">to</span> significantly reduced 
+integration problems <span class="keyword">and</span> allows a team <span class="keyword">to</span> develop cohesive software more rapidly. This article <span class="keyword">is</span> 
+a quick overview <span class="keyword">of</span> Continuous Integration summarizing <span class="keyword">the</span> technique <span class="keyword">and</span> <span class="keyword">its</span> current usage.
+</pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;简而言之，持续集成就是让项目团队中的每一个人都尽可能频繁地把他们的工作集成到产品中进行验证，获得反馈的一种工作模式。</p>
+<h2 id="在持续集成中工作">在持续集成中工作</h2>
+<p>&emsp;&emsp;在这里笔者描述一下一天的工作情况。笔者所在的团队很小，所做的工作以开发内部工具为主，采用gitlab来管理代码和issue，以及进行code review。</p>
+<p>&emsp;&emsp;早上到公司，第一件事一般是打开邮箱，查看有没有新的code review请求发过来。如果有的话，会在打开对应的merge request，进行code review，gitlab会自动把这些review结果发送给其他人。处理完这些事情后，如果有未做完的issue，会接着昨天的工作继续开发。如果昨天的issue已经结束并通过review，则会在gitlab上找下一个优先级的issue，将它的assiner改成自己，然后为这个issue创建分支，开始在这个分支上进行开发。</p>
+<p>&emsp;&emsp;通常情况下，上午的两三个小时时间主要用在code review和日常的交流回复上面，下午4：00前是主要的开发时间，在本地UT通过后，就会提交到gitlab上。然后创建一个merge request，这个时候CI系统会侦测到这次提交，并自动执行单元测试，代码静态分析等，如果其中一个测试失败，笔者会收到相关的邮件。然后就是修复这些问题，再次提交。</p>
+<p>&emsp;&emsp;下班前的半个小时是组内的日常会议时间，主要是交流各自进度和遇到的问题。</p>
+<p>&emsp;&emsp;如果所选的issue开发已经结束，并且通过CI系统测试，就会发一个code review的请求给组内其他同事，开启review环节。</p>
+<p>&emsp;&emsp;如果有相关的issue在code review都已经结束，则会在gitlab上关闭merge request，这个时候代码会自动合并到master分支，并在5分钟以内被部署到生产环境上。</p>
+<h3 id="工作在持续集成中的特点">工作在持续集成中的特点</h3>
+<ol>
+<li>源代码管理工具，如git，svn等</li>
+<li>持续集成工具，如Jenkins</li>
+<li>频繁地代码提交和测试</li>
+<li>细颗粒度的issue管理，保证每一个issue的开发周期在一两天完成</li>
+<li>流程自动化的code review</li>
+<li>自动和频繁的代码合并和部署</li>
+</ol>
+<h2 id="持续集成的优与劣">持续集成的优与劣</h2>
+<h3 id="优点">优点</h3>
+<p>&emsp;&emsp;持续集成的优点是比较明显的，频繁的提交带来频繁地集成，把代码问题的暴露大大提前了，并且由于流程的自动化，让开发者更好地关注于开发本身。</p>
+<p>&emsp;&emsp;对于较大的项目，或者开发者分散的项目，好的持续集成策略能够极大地降低沟通成本和集成成本。</p>
+<h3 id="风险">风险</h3>
+<p>&emsp;&emsp;采用持续集成需要维护的工具较多，至少包括源代码管理工具如git，持续集成工具如Jenkins，并且需要制定相应的规则保证每一个持续集成job都正确地工作。这中间需要较多地沟通和适应成本，对于一个开发频率不高的项目，这种做法性价比不高。</p>
+<p>&emsp;&emsp;并不是有git和jenkins就可以称为持续集成的，要完整地搭建一套可工作的持续集成框架，需要研发测试等各个组织的努力，如果处理不好，可能适得其反。</p>
+<h3 id="基于gitlab的持续集成策略">基于gitlab的持续集成策略</h3>
+<p>&emsp;&emsp;下图是笔者所在团队基于gitlab的持续集成策略，这里面的测试只有一轮，集成也只有一轮，对于更复杂的多轮集成的情况，我们后面再谈。</p>
+<p><img src="/images/dev_process.png" alt="gitlab dev process"></p>
+<h2 id="多轮持续集成模型">多轮持续集成模型</h2>
+<p>&emsp;&emsp;如果产品比较复杂，如通信产品，单靠单元测试显然不能满足需求，这个时候往往会有多轮测试，并且在整个产品集成前后都会有单独的测试被执行。以笔者所在公司为例，一个通信产品往往能分为平台和应用等几大块，对每一块来说，产品交付到客户手中至少需要经历：单元测试、基于真实设备或模拟器的功能测试（编包前）、编包测试、编包后的基本功能测试、包的回归测试、系统集成测试等这几个环节。两个环节间的联系有的是代码的版本，有的则是包的版本。而越到测试的后期，测试的成本就越高，测试周期也越长。理想的情况是每一个阶段的集成测试都可以自动的转入下一阶段，并根据时间、频率等具体情况来决定测试频率，一个开发人员的代码提交可以在整个流程中被自动追溯，而产品的质量也可以在整个流程中被度量和追溯。而整个流程也就类似下图的continuous delivery或者continuous deployment了。</p>
+<p><img src="/images/continuous_delivery.jpg" alt="continuous delivery"></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-07-18T09:08:38.000Z"><a href="/2014/07/18/测试自动化方案的选择/">2014-07-18</a></time>
       
       
@@ -122,48 +202,32 @@
 <p>&emsp;&emsp;选择测试和开发混合组建的团队，一般采用敏捷开发的模式，对于测试自动化的接受程度较高。因此对一般的产品和项目来说，测试自动化必然是一开始就要引入的。但是从另一个角度讲，这一类的组织形式也容易产生团队间的重复工作，浪费现象严重。因此建议对于这一类型的组织，在自动化测试框架和策略方面要做到不同团队间的一致，并且不同团队共享同一份测试框架代码。另外建议有相对独立的测试自动化评审团队来验收框架代码和用例，以保证质量。</p>
 <p>&emsp;&emsp;对于这一类型的组织，测试用例间的耦合性必须消除，即便是以执行时间为代价。测试用例必须尽可能独立和简洁明了，执行频率需要在所有团队上统一，如每日一次，并且不能收到某个团队的干扰。对于自动化测试发现的问题，所有团队的分析必须及时、高效。</p>
 <p>&emsp;&emsp;对于这一类型的组织，建议自动化测试在执行层面上统一，各个团队不去维护执行框架，但是测试用例、测试设备和结果的维护必须由各个团队自己负责。</p>
-<p>&emsp;&emsp;建议定期有相应的执行和分析报告发出\（当然必须是自动的\），以保证各个团队的工作重心不发生偏移。</p>
+<p>&emsp;&emsp;建议定期有相应的执行和分析报告发出\（当然最好是自动的\），以保证各个团队的工作重心不发生偏移。</p>
+<p>&emsp;&emsp;虽然建议在执行层面统一，但是不意味着需要有独立的自动化测试执行团队来承担这项工作，事实上应当避免出现这样的团队。有这样的团队虽然从管理上可以带来一定的简便，但是会影响分析和测试效率，更大的影响在于让开发团队出现依赖，不再认真维护他们的测试用例。</p>
 <h3 id="测试外包的团队">测试外包的团队</h3>
+<p>&emsp;&emsp;这类测试一般相对独立和明确，因此什么时候引入，要不要引入测试自动化基本是确定的，关键是可维护性要求较高。笔者工作中曾经遇到一个外包的产品，自动化测试的用例基本是一个模块一种方案，而且由于稳定性问题，验收的标准被定义为在20次连续的测试中有一次可以全部通过即为通过。当后来因为产品线的问题，这个产品取消外包后，接手的团队不得不重新设计自动化测试框架和方案，并把原来的测试用例逐个分析和翻译，耗费了大量的时间。</p>
+<p>&emsp;&emsp;如果外包的团队和内部团队在一起工作，那和前面的几个方式的讨论没什么区别；如果外包的团队独立工作，或者属于不同的地区和国家，那尽可能将稳定的回归测试工作外包，并要求外包团队接近100%的测试自动化率，以避免风险。</p>
 <h2 id="如何决定测试自动化方案">如何决定测试自动化方案</h2>
+<p>&emsp;&emsp;前面我们谈了要不要引入测试自动化，以及什么时候引入测试自动化。接下来我们具体谈一下面对特定的项目，采用什么样的测试自动化方案比较合适。</p>
 <h3 id="开发流程决定测试自动化方案">开发流程决定测试自动化方案</h3>
+<p>&emsp;&emsp;不同的开发流程对测试自动化方案的选择往往具有决定意义。在选择自动化测试方案前，请先仔细考虑一下，在项目采用的开发流程中，你所采用的方案能否得到大家的支持，能否顺利推行。这里笔者举一个例子来说明。</p>
+<p>&emsp;&emsp;笔者目前所在的公司是一个较大的通信企业，通信行业的测试设备极为昂贵，且维护的人力成本较高。对于公司里面的任何一个团队（500人以内）来讲，它都不太可能负责某一个产品线的整个环节，往往是其中的一部分，如操作系统，如通信应用等。在选择自动化测试方案的时候往往就有两种选项：</p>
+<ol>
+<li>利用真实的设备，搭建接近真实的测试环境，上下游的软件都尽可能地更上其它团队的最新开发进度，然后测试自己所交付的产品在这个环境上的质量。</li>
+<li>除了自己的产品外，尽可能地用模拟器，测试尽可能地简单，只覆盖自己开发的部分。</li>
+</ol>
+<p>&emsp;&emsp;同样地对应与上述两种方案，他们所采用的测试工具也往往会出现分歧。第一种方案往往倾向于集成的测试工具，类似LoadRunner、QTP这样的；第二种方案倾向与轻量化的测试工具，往往采用脚本语言如Python、Bash来构建他们的测试集。而在执行层面上，第一种方案往往会有独立的测试团队和工程师来负责，第二种却不一定。同时第二种方案的执行频率要高于第一种。</p>
+<p>&emsp;&emsp;那么什么样的团队会倾向于选择第一种方案呢？从笔者的观察来看，如果这个团队研发和测试界限比较明显，或者有较强的测试团队，特别是系统测试团队，开发流程接近瀑布多余敏捷，那他们通常会选择方案一。相反，则多数会选择方案二。</p>
 <h3 id="项目特点决定测试自动化方案">项目特点决定测试自动化方案</h3>
+<p>&emsp;&emsp;不存在普遍适用的测试自动化方案，比如，对于B/S应用，在功能测试方面，Selenium就是比RobotFramework更合适的选择。但如果测试的是windows桌面应用，那他们就不合适了。再比如，如果项目是做一个通信服务，那用Python这样的脚本语言自己构建测试框架往往更好。</p>
 <h3 id="工程师特点决定测试自动化方案">工程师特点决定测试自动化方案</h3>
+<p>&emsp;&emsp;采用工程师熟悉的语言和平台，可以更快地推广，并得到较高质量的自动化测试用例。而如果工程师普遍开发功底较薄，那采用标记语言或者模板语言就比采用一般编程语言更合适，这也就是为什么会出现像<a href="http://robotframework.org" target="_blank" rel="external">RobotFramework</a>这样的框架的原因。笔者见过一个项目，测试自动化采用C++语言编写，而且维护效率不低，原因就是这个团队所有的工程师都精通C++语言，这个时候推广Python或者标记语言可能阻力会更大。</p>
 <h2 id="测试自动化的团队组成">测试自动化的团队组成</h2>
+<p>&emsp;&emsp;很多组织（无论是小公司，还是跨国公司），很容易犯的错误就是忽视自动化测试核心团队的重要性，随意拼凑人员组成这个团队，如果项目旷日持久，其带来的浪费是相当惊人的。在笔者所在公司，就见过这样的例子，两三年之后，测试自动化用例和脚本出现大量的重复，整个测试自动化脚本库几无复用性可言，测试自动化的执行被限定在特定的机器上，环境配置被几千行冗余的Bash脚本所累，抽取和剥离需要耗费几千个小时甚至更多的人力。而且由于早期策略失误，框架扩展性差，造成测试覆盖率的严重不足，交付的产品质量满足不了客户需求。</p>
+<p>&emsp;&emsp;一个测试自动化核心团队可以是虚拟的，也可以是具体的团队，但是规模不应该很大，十个人左右是比较理想的情况。他们不应该负责所有测试用例的编写和维护，而应该着重于测试自动化框架和提高测试自动化开发执行效率方面。这个团队的成员必须具有足够的开发背景，能写出高质量的代码，并且有一定的测试经验，能够针对项目和团队的特点制定合适的测试自动化方案。同时，他们也需要有一定的coaching能力，能够影响广大的测试和研发团队，让他们工作在同一个自动化测试框架中，并且尽可能地避免浪费。</p>
 <h2 id="没有最好的方案，只有最合适的方案">没有最好的方案，只有最合适的方案</h2>
+<p>&emsp;&emsp;软件开发一直在不断地向前演进，无论是技术，还是工作方式，每个十年都有翻天覆地地变化。我们必须不断地更新自己的经验库，经常审视目前的方案，不断地优化它，改进它，使它成为最适合我们的方案。因为永远没有那个方案是最好的方案，我们只是在寻找当前对我们来说最适合的方案。</p>
 
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-07-17T06:14:45.000Z"><a href="/2014/07/17/工作在持续集成上/">2014-07-17</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/07/17/工作在持续集成上/">工作在持续集成上</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        
       
     </div>
     <footer>
@@ -309,6 +373,8 @@
   <ul class="entry">
   
     <li><a href="/tags/TA/">TA</a><small>1</small></li>
+  
+    <li><a href="/tags/持续集成/">持续集成</a><small>1</small></li>
   
     <li><a href="/tags/旅行/">旅行</a><small>1</small></li>
   
