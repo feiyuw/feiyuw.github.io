@@ -64,7 +64,55 @@
     </header>
     <div class="entry">
       
-        
+        <p>&emsp;&emsp;Gitlab可以认为是github的开源实现，基于它来构建开发流程可以带给我们类似github的体验，尤其是基于merge request进行测试和代码评审，是开发者间合作的一种很好的方式。本文就谈一下怎么基于gitlab merge request来进行持续集成和工作。</p>
+<p>&emsp;&emsp;先谈一下我们用到的工具：</p>
+<ul>
+<li>Jenkins</li>
+<li>git plugin</li>
+<li>gitlab merge request builder plugin</li>
+</ul>
+<p>&emsp;&emsp;然后准备一台Linux的PC用来安装Jenkins就可以了。</p>
+<h2 id="第一步：获取Jenkins，启动Jenkins">第一步：获取Jenkins，启动Jenkins</h2>
+<ol>
+<li>从 <a href="http://jenkins-ci.org" target="_blank" rel="external">http://jenkins-ci.org</a> 上下载最新的jenkins.war文件</li>
+<li>java -jar jenkins.war启动Jenkins，可以添加一下启动参数，设置端口和log地址等，如我实际使用的启动脚本如下：<figure class="highlight sh"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="shebang">#!/bin/bash
+</span>
+<span class="keyword">export</span> JENKINS_HOME=/opt/jenkins_home/
+java -Duser.timezone=<span class="string">"Asia/Shanghai"</span> -Dorg.apache.commons.jelly.tags.fmt.timeZone=<span class="string">'Asia/Shanghai'</span> -jar /opt/jenkins_home/jenkins.war --daemon --prefix=/jenkins --logfile=/opt/jenkins_home/logs/jenkins.log
+</pre></td></tr></table></figure></li>
+<li>打开 <a href="http://localhost:8080/jenkins" target="_blank" rel="external">http://localhost:8080/jenkins</a> 来使用它</li>
+</ol>
+<h2 id="第二步：安装git_plugin，gitlab_merge_request_builder_plugin">第二步：安装git plugin，gitlab merge request builder plugin</h2>
+<ol>
+<li>打开 <a href="http://localhost:8080/jenkins/pluginManager/" target="_blank" rel="external">http://localhost:8080/jenkins/pluginManager/</a> 选择Git Plugin和Gitlab Merge Request Builder Plugin，点击安装</li>
+<li>重启jenkins</li>
+<li>安装完成</li>
+</ol>
+<h2 id="第三步：全局配置">第三步：全局配置</h2>
+<ol>
+<li>打开 <a href="http://localhost:8080/jenkins/configure" target="_blank" rel="external">http://localhost:8080/jenkins/configure</a> ，配置<strong>Gitlab Merge Request Builder</strong></li>
+<li>设置Gitlab Host URL为你的gitlab服务器地址</li>
+<li>设置Jenkins Username，为你登录gitlab服务器的用户名</li>
+<li>设置Jenkins API Token，必须和Jenkins Username匹配</li>
+<li>其他设置默认就可以了</li>
+</ol>
+<p><img src="/images/gitlab_global.png" alt="gitlab全局配置"></p>
+<h2 id="第四步：配置Job">第四步：配置Job</h2>
+<ol>
+<li>新建一个job，配置Git，见下图，除了Repository URL，其它照抄就可以了<br> <img src="/images/git_config.png" alt="git config"></li>
+<li>配置Gitlab Merge Request Builder，注意设置Gitlab Project Path<br> <img src="/images/gitlab_mr_config.png" alt="gitlab merge request builder"></li>
+</ol>
+<h2 id="测试">测试</h2>
+<ol>
+<li>配置好测试的脚本和slave等，然后创建一个merge request，等待Jenkins的自动触发吧</li>
+<li>一个配置正确的job，触发的历史记录类似下图<br> <img src="/images/gitlab_mr_builds.png" alt="gitlab builds"></li>
+<li>某一个具体的build的触发情况如下图，可以看到触发源是gitlab merge request，源branch和目标branch的信息，以及commit版本信息等<br> <img src="/images/gitlab_mr_build_cause.png" alt="gitlab build detail"></li>
+</ol>
+
       
     </div>
     <footer>
