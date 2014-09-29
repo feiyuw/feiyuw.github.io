@@ -4,7 +4,7 @@
   <subtitle><![CDATA[大音希声，大象希行]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://feiyuw.github.io/"/>
-  <updated>2014-09-01T14:26:16.271Z</updated>
+  <updated>2014-09-29T08:56:06.528Z</updated>
   <id>http://feiyuw.github.io/</id>
   
   <author>
@@ -15,11 +15,193 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[A byte of NodeJS]]></title>
+    <link href="http://feiyuw.github.io/2014/09/29/A-byte-of-NodeJS/"/>
+    <id>http://feiyuw.github.io/2014/09/29/A-byte-of-NodeJS/</id>
+    <published>2014-09-29T07:31:38.000Z</published>
+    <updated>2014-09-29T08:55:08.000Z</updated>
+    <content type="html"><![CDATA[<p>&emsp;&emsp;NodeJS或者叫Node,应该是目前github上非常热门的技术了,我们这里对它作一些初步的介绍,希望能给准备学习它的人有所帮助.本博客的很多内容来自«深入浅出NodeJS»</p>
+<h2 id="Node的由來">Node的由來</h2>
+<ul>
+<li>2009年3月,由Ryan Dahl宣布创建.</li>
+<li>2009年5月,Ryan Dahl在github上发布了最初的版本.</li>
+<li>2010年底,硅谷云计算服务商Joyent公司自主Ryan Dahl,以Joyent公司员工的身份全职负责Node的发展.</li>
+<li>2011年7月,Node在微软的支持下发布Windows版本.</li>
+<li>2012年1月底,Node掌门人身份由Ryan Dahl转交给Isaac Z.Schlueter,后者为NPM的作者.</li>
+<li>现在的版本是0.10.32,0.14版本以后,会正式发布1.0版本.</li>
+</ul>
+<h2 id="Node的架构">Node的架构</h2>
+<p>&emsp;&emsp;很多人都知道NodeJS采用javascript语言编写后端代码,但是它的架构是什么样的呢?就像Python的解析器是有C语言编写的一样,Node的解析器V8由C++语言编写.V8?没错,就是chrome的js解析引擎.</p>
+<h3 id="Chrome">Chrome</h3>
+<p><img src="/images/chrome.png" alt="Chrome架构"></p>
+<h3 id="Node">Node</h3>
+<p><img src="/images/node.png" alt="Node架构"></p>
+<h2 id="Node的特点">Node的特点</h2>
+<ol>
+<li><p>异步I/O</p>
+<p> <img src="http://blog.mixu.net/files/2011/01/io-cost.png" alt="The cost of I/O"></p>
+</li>
+<li><p>事件与回调函数</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);
+http.createServer(<span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  res.writeHead(<span class="number">200</span>, {<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>});
+  res.end(<span class="string">'Hello World\n'</span>);
+}).listen(<span class="number">1337</span>, <span class="string">'127.0.0.1'</span>);
+console.log(<span class="string">'Server running at http://127.0.0.1:1337/'</span>);
+</pre></td></tr></table></figure><br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">rpcGet</span><span class="params">(apiHost, apiStr, callback)</span> {</span>
+  <span class="keyword">var</span> options = {
+    <span class="string">'host'</span>: apiHost,
+    <span class="string">'path'</span>: apiStr,
+  }
+  cb = <span class="function"><span class="keyword">function</span><span class="params">(response)</span> {</span>
+    <span class="keyword">var</span> str = <span class="string">''</span>;
+    response.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span><span class="params">(chunk)</span> {</span>
+      str += chunk;
+    });
+    response.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      console.log(str);
+    });
+  }
+  http.request(options, cb).end();
+}
+</pre></td></tr></table></figure></li>
+<li>单线程</li>
+<li>跨平台</li>
+</ol>
+<h2 id="Node的难点">Node的难点</h2>
+<ol>
+<li>异常处理</li>
+<li>代码复杂度过高</li>
+<li>代码理解及调试困难</li>
+<li>同步需求难以实现</li>
+</ol>
+<h2 id="NPM和包管理">NPM和包管理</h2>
+<h3 id="NPM">NPM</h3>
+<p>NPM是node的包管理工具,类似与python的pypi或setuptools,它让javascript的分发和依赖得以有效地实施.</p>
+<h3 id="包管理">包管理</h3>
+<ul>
+<li>require</li>
+<li>exports</li>
+</ul>
+<h2 id="应用实例">应用实例</h2>
+<p>gitlab项目管理工具: <a href="https://github.com/feiyuw/gitlabpm" target="_blank" rel="external">https://github.com/feiyuw/gitlabpm</a></p>
+<h2 id="下一步">下一步</h2>
+<h3 id="nodeschool-io">nodeschool.io</h3>
+<p>将<a href="http://nodeschool.io/" target="_blank" rel="external">http://nodeschool.io/</a> 的练习挨个做下去,不仅有node相关的,也有git等的练习.</p>
+<h3 id="练习">练习</h3>
+<ol>
+<li>基于express,创建一个简单的blog</li>
+<li>基于socket.io,创建一个聊天工具,使连接到同一个网站上的人可以相互聊天</li>
+<li>基于telnet,创建一个telnet server,提供对你的服务器的有限的查询命令支持</li>
+</ol>
+<h3 id="延伸阅读">延伸阅读</h3>
+<ul>
+<li>«深入浅出NodeJS»</li>
+</ul>
+]]></content>
+    
+    
+      <category term="NodeJS" scheme="http://feiyuw.github.io/tags/NodeJS/"/>
+    
+      <category term="软件开发" scheme="http://feiyuw.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[五个词汇里的VIM]]></title>
+    <link href="http://feiyuw.github.io/2014/09/19/%E4%BA%94%E4%B8%AA%E8%AF%8D%E6%B1%87%E9%87%8C%E7%9A%84VIM/"/>
+    <id>http://feiyuw.github.io/2014/09/19/五个词汇里的VIM/</id>
+    <published>2014-09-19T03:00:58.000Z</published>
+    <updated>2014-09-29T07:31:11.000Z</updated>
+    <content type="html"><![CDATA[<p>&emsp;&emsp;[TODO]</p>
+<ol>
+<li>模式</li>
+<li>移动</li>
+<li>跳转</li>
+<li>窗口</li>
+<li>Tag</li>
+<li>组合</li>
+<li>宏</li>
+<li>集成</li>
+<li>定制</li>
+<li>扩展</li>
+</ol>
+<h2 id="Links">Links</h2>
+<ol>
+<li>My VIM Configuration    <a href="https://github.com/feiyuw/vim.d" target="_blank" rel="external">https://github.com/feiyuw/vim.d</a></li>
+</ol>
+]]></content>
+    
+    
+      <category term="VIM" scheme="http://feiyuw.github.io/tags/VIM/"/>
+    
+      <category term="软件开发" scheme="http://feiyuw.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[高效使用gitlab]]></title>
+    <link href="http://feiyuw.github.io/2014/09/05/%E9%AB%98%E6%95%88%E4%BD%BF%E7%94%A8gitlab/"/>
+    <id>http://feiyuw.github.io/2014/09/05/高效使用gitlab/</id>
+    <published>2014-09-05T02:15:46.000Z</published>
+    <updated>2014-09-11T05:25:32.000Z</updated>
+    <content type="html"><![CDATA[<p>内部开发已经都转向gitlab了，这个github的开源clone已经变得越来越好了。它有很多有用的tips，让我们一起归纳一下吧。</p>
+<h2 id="Issue">Issue</h2>
+<h3 id="关联commit与issue">关联commit与issue</h3>
+<p>在commit信息中加上issue的ID如<code>#21</code>，在push之后就会自动在issue的comments里面加上一条，如下图所示：</p>
+<h3 id="让你的comment发给特定的人">让你的comment发给特定的人</h3>
+<p>在issue的comment里面包含<code>@user</code>这样的形式，就可以将这条comment以邮件的形式通知特定的人，见下图：</p>
+<p><img src="/images/issue_email.png" alt="通过comment通知"></p>
+<h2 id="Merge_Request">Merge Request</h2>
+<h3 id="关联issue与merge_request">关联issue与merge request</h3>
+<p>在issue的comment中加上merge request的ID如<code>!63</code>，就会在merge request的comment里面自动加上一条，见下图：</p>
+<h3 id="给merge_request打分">给merge request打分</h3>
+<h2 id="API">API</h2>
+<h2 id="Webhook">Webhook</h2>
+<h3 id="通过webhook来获知gitlab事件">通过webhook来获知gitlab事件</h3>
+<h2 id="MileStone">MileStone</h2>
+<h3 id="用milestone来管理项目进度">用milestone来管理项目进度</h3>
+]]></content>
+    
+    
+      <category term="Gitlab" scheme="http://feiyuw.github.io/tags/Gitlab/"/>
+    
+      <category term="git" scheme="http://feiyuw.github.io/tags/git/"/>
+    
+      <category term="效率" scheme="http://feiyuw.github.io/tags/%E6%95%88%E7%8E%87/"/>
+    
+      <category term="软件开发" scheme="http://feiyuw.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Travis CI架构分析]]></title>
     <link href="http://feiyuw.github.io/2014/08/17/Travis-CI%E6%9E%B6%E6%9E%84%E5%88%86%E6%9E%90/"/>
     <id>http://feiyuw.github.io/2014/08/17/Travis-CI架构分析/</id>
     <published>2014-08-17T14:30:09.000Z</published>
-    <updated>2014-08-17T11:53:42.246Z</updated>
+    <updated>2014-08-17T11:53:42.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;[TODO]</p>
 ]]></content>
     
@@ -37,7 +219,7 @@
     <link href="http://feiyuw.github.io/2014/08/17/%E6%81%BD%E4%B9%8B%E7%8E%AE%E3%80%81%E5%BC%A0%E7%AB%9E%E7%92%A1%E4%BB%A5%E5%8F%8A%E5%BD%93%E5%B9%B4%E5%B8%B8%E5%B7%9E%E4%B8%AD%E5%AD%A6%E7%9A%84%E6%95%99%E6%94%B9%E7%8F%AD/"/>
     <id>http://feiyuw.github.io/2014/08/17/恽之玮、张竞璡以及当年常州中学的教改班/</id>
     <published>2014-08-17T11:59:33.000Z</published>
-    <updated>2014-08-17T23:05:21.466Z</updated>
+    <updated>2014-08-17T23:05:21.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;前几天，同学在微信朋友圈分享了一个链接，是一个北大的学生描写恽之玮的。这个链接是：<a href="http://blog.sina.com.cn/s/blog_760105a30101el7c.html" target="_blank" rel="external">学友眼中的大神——恽之玮究竟有多强</a>，百度百科上关于恽之玮的词条为: <a href="http://baike.baidu.com/view/10870579.htm?fr=aladdin。" target="_blank" rel="external">http://baike.baidu.com/view/10870579.htm?fr=aladdin。</a></p>
 <p>&emsp;&emsp;同学的这条微信一下把我拉回了十几年前，那时候我还在读高中，和恽之玮同一个学校，同一个年纪，甚至 同一个数学老师和同一个体育老师。我对他的印象是：一个有点木木的，经常待在图书馆，偶尔打打篮球，跳远还不错。</p>
 <p>&emsp;&emsp;恽之玮是省常中教改班的学生，教改班对我们来讲确实是神一级的存在，班平均有可能超过我们的最高分，经常垄断年级前十，多个数学、物理、化学、计算机竞赛的一等奖，多人保送清华和北大。在接近三分之一的学生被保送后，剩下的学生高考平均分超过一本线80多分……</p>
@@ -63,7 +245,7 @@
     <link href="http://feiyuw.github.io/2014/08/17/%E8%87%AD%E8%B1%86%E8%85%90/"/>
     <id>http://feiyuw.github.io/2014/08/17/臭豆腐/</id>
     <published>2014-08-17T07:02:03.000Z</published>
-    <updated>2014-08-17T11:51:58.680Z</updated>
+    <updated>2014-08-17T11:51:58.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;一直想写一篇关于臭豆腐的文章，但是就像很多人第一次吃臭豆腐的纠结一样，笔者迟迟没有定下标题，定下大意，也就一直没有落笔。直到最近看了一篇汪曾琪先生写的散文《五味》。</p>
 <p>&emsp;&emsp;汪曾琪先生的作品是那个时代的作家里面为数不多的我认为值得一读的之一，其他的有曹禹的话剧、鲁迅的《故事新编》等。想想汪老的一生，从南到北，从东到西，历经民国、抗战、解放战争、文革以及文革后的各个时期，挨过批斗，受过饥荒，然而读他的作品，里面流露的总是恬静和平和，看他描写各地的美食，有时仿佛能看到一个老人的顽童心性。他的作品，往往描写一些生活细节，写什么就是什么，我又何必纠结于什么大意和主题呢？</p>
 <p>&emsp;&emsp;汪老在《五味》里面对于中国人的吃臭的口味有一段描写，摘录如下： </p>
@@ -96,7 +278,7 @@
     <link href="http://feiyuw.github.io/2014/08/11/%E4%B9%A6%E8%AF%84%EF%BC%9A%E9%A2%A0%E8%A6%86%E7%AC%91%E5%82%B2%E6%B1%9F%E6%B9%96%E3%80%81%E5%8A%A8%E7%89%A9%E5%86%9C%E5%9C%BA%E3%80%81%E4%BC%90%E6%B8%85%E3%80%81%E5%A4%A7%E6%95%99%E5%A0%82%E4%B8%8E%E5%B8%82%E9%9B%86/"/>
     <id>http://feiyuw.github.io/2014/08/11/书评：颠覆笑傲江湖、动物农场、伐清、大教堂与市集/</id>
     <published>2014-08-11T01:46:27.000Z</published>
-    <updated>2014-08-12T02:05:52.044Z</updated>
+    <updated>2014-08-12T02:05:52.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;最近一个月看了几本书，有网络小说，如《伐清》、《颠覆笑傲江湖》，有讽刺小说，如《动物农场》，还有开源运动的经典书籍《大教堂与市集》。这里写一些简单的书评，权当回顾吧。</p>
 <h2 id="伐清：灰熊猫的明清历史观点">伐清：灰熊猫的明清历史观点</h2>
 <p>&emsp;&emsp;总的来讲，《伐清》是一本还不错的网络小说，如果没有看过《窃明》和《虎狼》，这本书会带给你明末清初历史的很多新奇的视角。作者以全新的视角来探讨南明王朝逆袭的可能性，并且以通俗的方式揭示帝国主义的一些行为准则。不过从整体情节来讲，个人认为不如《窃明》，但也值得一看。这里摘录其中的一段。</p>
@@ -167,7 +349,7 @@
     <link href="http://feiyuw.github.io/2014/08/11/%E6%88%91%E5%AE%B6%E5%A5%B3%E5%84%BF%E4%B8%89%E5%B2%81%E5%8D%8A/"/>
     <id>http://feiyuw.github.io/2014/08/11/我家女儿三岁半/</id>
     <published>2014-08-11T01:19:55.000Z</published>
-    <updated>2014-08-11T06:37:10.810Z</updated>
+    <updated>2014-08-11T06:37:10.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;女儿已经三岁半了，从老婆怀孕到她出生，再到学会走路，学会说话，去托班上学。这四年多的时间，随着女儿的加入，我们也改变了很多。</p>
 <p>&emsp;&emsp;这里就简单记录一件小事吧，权当留作老来幸福的回忆。</p>
 <p>&emsp;&emsp;昨天晚上到了睡觉的时间了，女儿跑过去关掉灯，然后趴在我旁边，过了几秒中，她对我说：“爸爸，我睡不着。”。我回答：“睡不着的话坐起来跟爸爸聊聊天吧。”</p>
@@ -209,7 +391,7 @@
     <link href="http://feiyuw.github.io/2014/08/06/%E5%9F%BA%E4%BA%8Egitlab-merge-request%E7%9A%84%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
     <id>http://feiyuw.github.io/2014/08/06/基于gitlab-merge-request的持续集成/</id>
     <published>2014-08-06T06:30:41.000Z</published>
-    <updated>2014-08-11T08:39:44.454Z</updated>
+    <updated>2014-08-11T08:39:44.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;Gitlab可以认为是github的开源实现，基于它来构建开发流程可以带给我们类似github的体验，尤其是基于merge request进行测试和代码评审，是开发者间合作的一种很好的方式。本文就谈一下怎么基于gitlab merge request来进行持续集成和工作。</p>
 <p>&emsp;&emsp;先谈一下我们用到的工具：</p>
 <ul>
@@ -272,7 +454,7 @@ java -Duser.timezone=<span class="string">"Asia/Shanghai"</span> -Dorg.apache.co
     <link href="http://feiyuw.github.io/2014/08/06/%E5%B7%A5%E4%BD%9C%E5%9C%A8%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90%E4%B8%8A/"/>
     <id>http://feiyuw.github.io/2014/08/06/工作在持续集成上/</id>
     <published>2014-08-06T06:14:45.000Z</published>
-    <updated>2014-08-11T06:35:53.983Z</updated>
+    <updated>2014-08-11T06:35:53.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;最近这几年一直在与持续集成及其相关的工作打交道，包括我自己的日常工作，目前也在这个工作模式里面进行。这篇博客想通过一天的工作来聊一下这种工作模式，它的优点以及弊端。</p>
 <h2 id="什么是持续集成">什么是持续集成</h2>
 <p>&emsp;&emsp;摘录自Martin Fowler的<a href="http://www.martinfowler.com/articles/continuousIntegration.html" target="_blank" rel="external">大作</a>：</p>
@@ -334,7 +516,7 @@ a quick overview <span class="keyword">of</span> Continuous Integration summariz
     <link href="http://feiyuw.github.io/2014/07/18/%E6%B5%8B%E8%AF%95%E8%87%AA%E5%8A%A8%E5%8C%96%E6%96%B9%E6%A1%88%E7%9A%84%E9%80%89%E6%8B%A9/"/>
     <id>http://feiyuw.github.io/2014/07/18/测试自动化方案的选择/</id>
     <published>2014-07-18T09:08:38.000Z</published>
-    <updated>2014-08-04T05:49:02.066Z</updated>
+    <updated>2014-08-04T05:49:02.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;软件开发发展到今天，分工已经越来越细了，测试自动化也已成为很多组织所采用的重要测试手段。笔者这几年工作过的公司和组织，见过很多不同的开发和测试模式，以及很多的测试自动化解决方案，很多组织都花费了大量的时间进行测试自动化，但是真正取得良好效果的却不多。大部分的组织在这块都存在或这或那的问题。笔者希望在这里能够抛砖引玉，讨论一下测试自动化方案的选择问题。</p>
 <h2 id="测试自动化是什么">测试自动化是什么</h2>
 <p>&emsp;&emsp;什么是自动化测试？关于这个问题，我们可以找到很多的解答。百度百科上关于自动化测试的说明为：</p>
@@ -427,7 +609,7 @@ a quick overview <span class="keyword">of</span> Continuous Integration summariz
     <link href="http://feiyuw.github.io/2014/07/14/%E5%8E%A6%E9%97%A8%E8%A1%8C/"/>
     <id>http://feiyuw.github.io/2014/07/14/厦门行/</id>
     <published>2014-07-14T07:37:53.000Z</published>
-    <updated>2014-07-17T07:02:40.877Z</updated>
+    <updated>2014-07-17T07:02:40.000Z</updated>
     <content type="html"><![CDATA[<p>&emsp;&emsp;这次的旅行完全是临时起意，星期一突然产生了去厦门的想法，星期二定了火车票，买了旅行箱，星期三定下酒店，星期四就出发了。</p>
 <p>&emsp;&emsp;关于旅行的目的同样是没有特别计划，关键点就两个：<strong>海滩</strong>、<strong>小吃</strong>。必须去的景点就一个：<strong>鼓浪屿</strong>。基本的宗旨是：</p>
 <pre><code><span class="bullet">* </span>不赶时间

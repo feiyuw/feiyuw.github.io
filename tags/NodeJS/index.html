@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NodeJS | 张裕的博客</title>
+  <meta name="author" content="feiyuw">
+  
+  <meta name="description" content="Test Automation, Continuous Delivery, Node.js, Python and VIM">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="张裕的博客"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="张裕的博客" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">张裕的博客</a></h1>
+  <h2><a href="/">大音希声，大象希行</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">存档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div>
+</header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">NodeJS</h2>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-09-29T07:31:38.000Z"><a href="/2014/09/29/A-byte-of-NodeJS/">2014-09-29</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/09/29/A-byte-of-NodeJS/">A byte of NodeJS</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>&emsp;&emsp;NodeJS或者叫Node,应该是目前github上非常热门的技术了,我们这里对它作一些初步的介绍,希望能给准备学习它的人有所帮助.本博客的很多内容来自«深入浅出NodeJS»</p>
+<h2 id="Node的由來">Node的由來</h2>
+<ul>
+<li>2009年3月,由Ryan Dahl宣布创建.</li>
+<li>2009年5月,Ryan Dahl在github上发布了最初的版本.</li>
+<li>2010年底,硅谷云计算服务商Joyent公司自主Ryan Dahl,以Joyent公司员工的身份全职负责Node的发展.</li>
+<li>2011年7月,Node在微软的支持下发布Windows版本.</li>
+<li>2012年1月底,Node掌门人身份由Ryan Dahl转交给Isaac Z.Schlueter,后者为NPM的作者.</li>
+<li>现在的版本是0.10.32,0.14版本以后,会正式发布1.0版本.</li>
+</ul>
+<h2 id="Node的架构">Node的架构</h2>
+<p>&emsp;&emsp;很多人都知道NodeJS采用javascript语言编写后端代码,但是它的架构是什么样的呢?就像Python的解析器是有C语言编写的一样,Node的解析器V8由C++语言编写.V8?没错,就是chrome的js解析引擎.</p>
+<h3 id="Chrome">Chrome</h3>
+<p><img src="/images/chrome.png" alt="Chrome架构"></p>
+<h3 id="Node">Node</h3>
+<p><img src="/images/node.png" alt="Node架构"></p>
+<h2 id="Node的特点">Node的特点</h2>
+<ol>
+<li><p>异步I/O</p>
+<p> <img src="http://blog.mixu.net/files/2011/01/io-cost.png" alt="The cost of I/O"></p>
+</li>
+<li><p>事件与回调函数</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);
+http.createServer(<span class="function"><span class="keyword">function</span> <span class="params">(req, res)</span> {</span>
+  res.writeHead(<span class="number">200</span>, {<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>});
+  res.end(<span class="string">'Hello World\n'</span>);
+}).listen(<span class="number">1337</span>, <span class="string">'127.0.0.1'</span>);
+console.log(<span class="string">'Server running at http://127.0.0.1:1337/'</span>);
+</pre></td></tr></table></figure><br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">rpcGet</span><span class="params">(apiHost, apiStr, callback)</span> {</span>
+  <span class="keyword">var</span> options = {
+    <span class="string">'host'</span>: apiHost,
+    <span class="string">'path'</span>: apiStr,
+  }
+  cb = <span class="function"><span class="keyword">function</span><span class="params">(response)</span> {</span>
+    <span class="keyword">var</span> str = <span class="string">''</span>;
+    response.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span><span class="params">(chunk)</span> {</span>
+      str += chunk;
+    });
+    response.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+      console.log(str);
+    });
+  }
+  http.request(options, cb).end();
+}
+</pre></td></tr></table></figure></li>
+<li>单线程</li>
+<li>跨平台</li>
+</ol>
+<h2 id="Node的难点">Node的难点</h2>
+<ol>
+<li>异常处理</li>
+<li>代码复杂度过高</li>
+<li>代码理解及调试困难</li>
+<li>同步需求难以实现</li>
+</ol>
+<h2 id="NPM和包管理">NPM和包管理</h2>
+<h3 id="NPM">NPM</h3>
+<p>NPM是node的包管理工具,类似与python的pypi或setuptools,它让javascript的分发和依赖得以有效地实施.</p>
+<h3 id="包管理">包管理</h3>
+<ul>
+<li>require</li>
+<li>exports</li>
+</ul>
+<h2 id="应用实例">应用实例</h2>
+<p>gitlab项目管理工具: <a href="https://github.com/feiyuw/gitlabpm" target="_blank" rel="external">https://github.com/feiyuw/gitlabpm</a></p>
+<h2 id="下一步">下一步</h2>
+<h3 id="nodeschool-io">nodeschool.io</h3>
+<p>将<a href="http://nodeschool.io/" target="_blank" rel="external">http://nodeschool.io/</a> 的练习挨个做下去,不仅有node相关的,也有git等的练习.</p>
+<h3 id="练习">练习</h3>
+<ol>
+<li>基于express,创建一个简单的blog</li>
+<li>基于socket.io,创建一个聊天工具,使连接到同一个网站上的人可以相互聊天</li>
+<li>基于telnet,创建一个telnet server,提供对你的服务器的有限的查询命令支持</li>
+</ol>
+<h3 id="延伸阅读">延伸阅读</h3>
+<ul>
+<li>«深入浅出NodeJS»</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:feiyuw.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/家庭/">家庭</a><small>1</small></li>
+  
+    <li><a href="/categories/持续集成/">持续集成</a><small>2</small></li>
+  
+    <li><a href="/categories/教育/">教育</a><small>1</small></li>
+  
+    <li><a href="/categories/旅行/">旅行</a><small>1</small></li>
+  
+    <li><a href="/categories/测试自动化/">测试自动化</a><small>1</small></li>
+  
+    <li><a href="/categories/读书/">读书</a><small>2</small></li>
+  
+    <li><a href="/categories/软件开发/">软件开发</a><small>4</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/Gitlab/">Gitlab</a><small>1</small></li>
+  
+    <li><a href="/tags/NodeJS/">NodeJS</a><small>1</small></li>
+  
+    <li><a href="/tags/Ruby-On-Rails/">Ruby On Rails</a><small>1</small></li>
+  
+    <li><a href="/tags/TA/">TA</a><small>1</small></li>
+  
+    <li><a href="/tags/VIM/">VIM</a><small>1</small></li>
+  
+    <li><a href="/tags/git/">git</a><small>1</small></li>
+  
+    <li><a href="/tags/女儿/">女儿</a><small>1</small></li>
+  
+    <li><a href="/tags/家庭/">家庭</a><small>1</small></li>
+  
+    <li><a href="/tags/持续集成/">持续集成</a><small>3</small></li>
+  
+    <li><a href="/tags/效率/">效率</a><small>1</small></li>
+  
+    <li><a href="/tags/教育/">教育</a><small>1</small></li>
+  
+    <li><a href="/tags/数学/">数学</a><small>1</small></li>
+  
+    <li><a href="/tags/旅行/">旅行</a><small>1</small></li>
+  
+    <li><a href="/tags/美食/">美食</a><small>1</small></li>
+  
+    <li><a href="/tags/读书/">读书</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 feiyuw
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+<!-- google analysis -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53705106-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
