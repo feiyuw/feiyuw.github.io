@@ -1,0 +1,13 @@
+# Site settings
+title: Zhang Yu's Blog
+email: feiyuw@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  Think less, do more!
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://feiyuw.github.io" # the base hostname & protocol for your site
+twitter_username: feiyuw
+github_username:  feiyuw
+paginate: 5
+
+# Build settings
+markdown: kramdown
