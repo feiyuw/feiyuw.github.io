@@ -6,10 +6,13 @@ categories: TA
 ---
 
 If you ask somebody how to reset all iptables rules configured, he or she may answer you in 3 seconds. The answer may be:
+
 ```
 iptables -F
 ```
+
 With the help document of iptables, it says:
+
 ```
   --flush   -F [chain]		Delete all rules in  chain or all chains
 ```
@@ -23,6 +26,7 @@ iptables -t nat -I PREROUTING -p tcp --dport 80 -j DNAT --to <remote ip>
 ```
 
 Then I executed the command `iptables -L`, but I did not get the new rule.
+
 ```
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination
@@ -43,6 +47,7 @@ Why? After searching some meterials and reading the manual carefully, I find the
 `iptables` has a parameter `-t`, it will specify a table, defaultly the table is `filter`. But in the command above I configured a rule under table `nat`. So `iptables -F` will not flush that rule, as it does not belong the `filter`.
 
 Now I execute `iptables -t nat -L`, I get it.
+
 ```
 Chain PREROUTING (policy ACCEPT)
 target     prot opt source               destination
