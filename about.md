@@ -4,8 +4,8 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+I'm Zhang Yu(张裕), a Test Automation Coach. I have some experience on Test Automation, Continuous Integration and Continuous Delivery.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+I love Python, NodeJS, data virtualization and VIM. I'm also a kindle fans.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+During my spare time, I will be with my family.
