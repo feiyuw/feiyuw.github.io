@@ -53,3 +53,15 @@ Now I execute `iptables -t nat -L`, I get it.
     target     prot opt source               destination
 
 Then `iptables -t nat -F` remove the rule I just configured.
+
+So the solution to remove all rules is:
+
+    iptables -F
+    iptables -X
+    iptables -t nat -F
+    iptables -t nat -X
+    iptables -t mangle -F
+    iptables -t mangle -X
+    iptables -P INPUT ACCEPT
+    iptables -P FORWARD ACCEPT
+    iptables -P OUTPUT ACCEPT
