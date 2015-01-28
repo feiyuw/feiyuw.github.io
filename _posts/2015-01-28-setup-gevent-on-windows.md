@@ -11,9 +11,10 @@ categories: Python
 在尝试了一天的编译之后, 笔者决定转换思路, 寻找已经编译好的代码, 最好是一键安装的安装包.
 
 gevent依赖greenlet, 从源码安装的话, 还需要cython的支持和编译libev. 而greenlet在windows平台上则需要编译libevent. 因此我们至少需要:
-    * libevent的dll文件
-    * greenlet的免编译安装包
-    * gevent的免编译安装包
+
+* libevent的dll文件
+* greenlet的免编译安装包
+* gevent的免编译安装包
 
 ## libevent.dll
 
