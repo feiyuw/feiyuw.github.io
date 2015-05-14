@@ -158,9 +158,9 @@ Have you noticed they have the same function names, like `start_suite`, `end_sui
 
 As we know, from RobotFramework 2.8, the execution and logging are all inherited from `robot.model.visitor.SuiteVisitor`. And let's check `XmlLogger`.
 
-* robot.output.xmllogger.XmlLogger
+* robot.model.visitor.SuiteVisitor
     * robot.result.visitor.ResultVisitor
-        * robot.model.visitor.SuiteVisitor
+        * robot.output.xmllogger.XmlLogger
 
 After finding out this, I think it should be possible to implement a listener to generate log file for each sub suite. In the `start_suite`, a `XmlLogger` instance will be created, and it will be used in other interfaces like `start_test`, `start_keyword`, and in the `end_suite`, the xml file should be done and closed. So based on this, I wrote the first version.
 
