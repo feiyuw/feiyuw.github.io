@@ -152,7 +152,7 @@ class XmlLogger(ResultVisitor):
         self._writer.element('status', item.message, attrs)
 ```
 
-What do you find from the code? If you are puzzled, let's read the document of listener interfaces http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#using-listener-interface
+What do you find from the code? If you are puzzled, let's read the document of listener interfaces [http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#using-listener-interface](http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#using-listener-interface)
 
 Have you noticed they have the same function names, like `start_suite`, `end_suite`, `start_test` and `end_test`? That's interesting, what's the reason?
 
@@ -290,4 +290,4 @@ class _DictObj(object):
 
 I have `output.xml` of sub-suite generated correctly, and then I can add code the generate `log.html` and `report.html`. The generated path is another issue, it should base on the settings of complete one.
 
-The latest code is at https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py.
+The latest code is at [https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py](https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py).
