@@ -16,8 +16,8 @@ Let's find out the solution of `output.xml` logging in RobotFramework firstly.
 
 In the module `robot.output.xmllogger`, we find the class `XmlLogger`. The code is as below:
 
-```python
 
+```python
 class XmlLogger(ResultVisitor):
 
     def __init__(self, path, log_level='TRACE', generator='Robot'):
