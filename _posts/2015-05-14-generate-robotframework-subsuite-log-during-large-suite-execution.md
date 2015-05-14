@@ -17,6 +17,7 @@ Let's find out the solution of `output.xml` logging in RobotFramework firstly.
 In the module `robot.output.xmllogger`, we find the class `XmlLogger`. The code is as below:
 
 ```python
+
 class XmlLogger(ResultVisitor):
 
     def __init__(self, path, log_level='TRACE', generator='Robot'):
@@ -150,155 +151,22 @@ class XmlLogger(ResultVisitor):
             attrs.update(extra_attrs)
         self._writer.element('status', item.message, attrs)
 ```
-What do you find from the code? If you are puzzled, let's read the document of listener interfaces.
 
-| *Method*      |   *Arguments*    |   *Attributes / Explanation*                     |
-| ------------- | -----------------| -------------------------------------------------|
-| start_suite   | name, attributes | Keys in the attribute dictionary:                |
-|               |                  |                                                  |
-|               |                  | * id: suite id. 's1' for top level suite, 's1-s1'|
-|               |                  |   for its first child suite, 's1-s2' for second  |
-|               |                  |   child, and so on. (new in 2.8.5)               |
-|               |                  | * longname: suite name including parent suites   |
-|               |                  | * doc: test suite documentation                  |
-|               |                  | * metadata: dictionary/map containing `free test |
-|               |                  |   suite metadata`_                               |
-|               |                  | * source: absolute path of the file/directory    |
-|               |                  |   test suite was created from (new in 2.7)       |
-|               |                  | * suites: names of suites directly in this suite |
-|               |                  |   as a list of strings                           |
-|               |                  | * tests: names of tests directly in this suite   |
-|               |                  |   as a list of strings                           |
-|               |                  | * totaltests: total number of tests in this suite|
-|               |                  |   and all its sub-suites as an integer           |
-|               |                  | * starttime: execution start time                |
-+---------------+------------------+--------------------------------------------------+
-| end_suite     | name, attributes | Keys in the attribute dictionary:                |
-|               |                  |                                                  |
-|               |                  | * id: suite id. 's1' for top level suite, 's1-s1'|
-|               |                  |   for its first child suite, 's1-s2' for second  |
-|               |                  |   child, and so on. (new in 2.8.5)               |
-|               |                  | * longname: test suite name including parents    |
-|               |                  | * doc: test suite documentation                  |
-|               |                  | * metadata: dictionary/map containing `free test |
-|               |                  |   suite metadata`_                               |
-|               |                  | * source: absolute path of the file/directory    |
-|               |                  |   test suite was created from (new in 2.7)       |
-|               |                  | * starttime: execution start time                |
-|               |                  | * endtime: execution end time                    |
-|               |                  | * elapsedtime: execution time in milliseconds    |
-|               |                  |   as an integer                                  |
-|               |                  | * status: either `PASS` or `FAIL`                |
-|               |                  | * statistics: suite statistics (number of passed |
-|               |                  |   and failed tests in the suite) as a string     |
-|               |                  | * message: error message if the suite setup or   |
-|               |                  |   teardown has failed, empty otherwise           |
-+---------------+------------------+--------------------------------------------------+
-| start_test    | name, attributes | Keys in the attribute dictionary:                |
-|               |                  |                                                  |
-|               |                  | * id: test id in format like 's1-s2-t2', where   |
-|               |                  |   beginning is parent suite id and last part     |
-|               |                  |   shows test index in that suite (new in 2.8.5)  |
-|               |                  | * longname: test name including parent suites    |
-|               |                  | * doc: test case documentation                   |
-|               |                  | * tags: test case tags as a list of strings      |
-|               |                  | * critical: `yes` or `no` depending              |
-|               |                  |   is test considered critical or not             |
-|               |                  | * template: contains the name of the template    |
-|               |                  |   used for the test. If the test is not templated|
-|               |                  |   it will be an empty string                     |
-|               |                  | * starttime: execution start time                |
-+---------------+------------------+--------------------------------------------------+
-| end_test      | name, attributes | Keys in the attribute dictionary:                |
-|               |                  |                                                  |
-|               |                  | * id: test id in format like 's1-s2-t2', where   |
-|               |                  |   beginning is parent suite id and last part     |
-|               |                  |   shows test index in that suite (new in 2.8.5)  |
-|               |                  | * longname: test name including parent suites    |
-|               |                  | * doc: test case documentation                   |
-|               |                  | * tags: test case tags as a list of strings      |
-|               |                  | * critical: `yes` or `no` depending              |
-|               |                  |   is test considered critical or not             |
-|               |                  | * template: contains the name of the template    |
-|               |                  |   used for the test. If the test is not templated|
-|               |                  |   it will be an empty string                     |
-|               |                  | * starttime: execution start time                |
-|               |                  | * endtime: execution end time                    |
-|               |                  | * elapsedtime: execution time in milliseconds    |
-|               |                  |   as an integer                                  |
-|               |                  | * status: either `PASS` or `FAIL`                |
-|               |                  | * message: status message, normally an error     |
-|               |                  |   message or an empty string                     |
-+---------------+------------------+--------------------------------------------------+
-| start_keyword | name, attributes | Keys in the attribute dictionary:                |
-|               |                  |                                                  |
-|               |                  | * type: string `Keyword` for normal              |
-|               |                  |   keywords and `Test Setup`, `Test               |
-|               |                  |   Teardown`, `Suite Setup` or `Suite             |
-|               |                  |   Teardown` for keywords used in suite/test      |
-|               |                  |   setup/teardown                                 |
-|               |                  | * doc: keyword documentation                     |
-|               |                  | * args: keyword's arguments as a list of strings |
-|               |                  | * starttime: execution start time                |
-+---------------+------------------+--------------------------------------------------+
-| end_keyword   | name, attributes | Keys in the attribute dictionary:                |
-|               |                  |                                                  |
-|               |                  | * type: same as with `start_keyword`             |
-|               |                  | * doc: keyword documentation                     |
-|               |                  | * args: keyword's arguments as a list of strings |
-|               |                  | * starttime: execution start time                |
-|               |                  | * endtime: execution end time                    |
-|               |                  | * elapsedtime: execution time in milliseconds    |
-|               |                  |   as an integer                                  |
-|               |                  | * status: either `PASS` or `FAIL`                |
-+---------------+------------------+--------------------------------------------------+
-| log_message   | message          | Called when an executed keyword writes a log     |
-|               |                  | message. `message` is a dictionary with          |
-|               |                  | the following keys:                              |
-|               |                  |                                                  |
-|               |                  | * message: the content of the message            |
-|               |                  | * level: `log level`_ used in logging the message|
-|               |                  | * timestamp: message creation time, format is    |
-|               |                  |   `YYYY-MM-DD hh:mm:ss.mil`                      |
-|               |                  | * html: string `yes` or `no` denoting            |
-|               |                  |   whether the message should be interpreted as   |
-|               |                  |   HTML or not                                    |
-+---------------+------------------+--------------------------------------------------+
-| message       | message          | Called when the framework itself writes a syslog_|
-|               |                  | message. `message` is a dictionary with          |
-|               |                  | same keys as with `log_message` method.          |
-+---------------+------------------+--------------------------------------------------+
-| output_file   | path             | Called when writing to an output file is         |
-|               |                  | finished. The path is an absolute path to the    |
-|               |                  | file.                                            |
-+---------------+------------------+--------------------------------------------------+
-| log_file      | path             | Called when writing to a log file is             |
-|               |                  | finished. The path is an absolute path to the    |
-|               |                  | file.                                            |
-+---------------+------------------+--------------------------------------------------+
-| report_file   | path             | Called when writing to a report file is          |
-|               |                  | finished. The path is an absolute path to the    |
-|               |                  | file.                                            |
-+---------------+------------------+--------------------------------------------------+
-| debug_file    | path             | Called when writing to a debug file is           |
-|               |                  | finished. The path is an absolute path to the    |
-|               |                  | file.                                            |
-+---------------+------------------+--------------------------------------------------+
-| close         |                  | Called after all test suites, and test cases in  |
-|               |                  | them, have been executed.                        |
-+---------------+------------------+--------------------------------------------------+
+What do you find from the code? If you are puzzled, let's read the document of listener interfaces http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#using-listener-interface
 
 Have you noticed they have the same function names, like `start_suite`, `end_suite`, `start_test` and `end_test`? That's interesting, what's the reason?
 
 As we know, from RobotFramework 2.8, the execution and logging are all inherited from `robot.model.visitor.SuiteVisitor`. And let's check `XmlLogger`.
 
 * robot.output.xmllogger.XmlLogger
-    - robot.result.visitor.ResultVisitor
-        - robot.model.visitor.SuiteVisitor
+    * robot.result.visitor.ResultVisitor
+        * robot.model.visitor.SuiteVisitor
 
 After finding out this, I think it should be possible to implement a listener to generate log file for each sub suite. In the `start_suite`, a `XmlLogger` instance will be created, and it will be used in other interfaces like `start_test`, `start_keyword`, and in the `end_suite`, the xml file should be done and closed. So based on this, I wrote the first version.
 
+
 ```python
+
 from robot.output import XmlLogger
 
 class SuiteLogger:
@@ -342,7 +210,9 @@ class _DictObj(object):
             return self._attrs.[attr]
         raise AttributeError
 ```
+
 Test it, unfortunately it failed. I got many error messages like below:
+
 ```
 [ ERROR ] Calling listener method 'start_test' of listener 'listener.SuiteLogger' failed: AttributeError
 ```
@@ -354,7 +224,9 @@ Test again, most errors were removed, and `output.xml` was generated. But there 
 
 Thanks to RobotFramework, it provides a global context for us. It is `robot.running.EXECUTION_CONTEXTS`. So I wrote the first workable version.
 
+
 ```python
+
 from robot.output import XmlLogger
 from robot.running import EXECUTION_CONTEXTS
 
@@ -418,4 +290,4 @@ class _DictObj(object):
 
 I have `output.xml` of sub-suite generated correctly, and then I can add code the generate `log.html` and `report.html`. The generated path is another issue, it should base on the settings of complete one.
 
-The latest code is at `https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py`.
+The latest code is at https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py.
