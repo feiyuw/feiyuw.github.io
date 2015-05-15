@@ -288,6 +288,4 @@ class _DictObj(object):
         return self._attrs.get(attr, None)
 ```
 
-I have `output.xml` of sub-suite generated correctly, and then I can add code the generate `log.html` and `report.html`. The generated path is another issue, it should base on the settings of complete one.
-
-The latest code is at [https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py](https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py).
+I have `output.xml` of sub-suite generated correctly, and then I can add code the generate `log.html` and `report.html`. The generated path is another issue, it should base on the settings of `${OUTPUT DIR}`, I have implemented it in the latest version, you can find the code at  [https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py](https://github.com/feiyuw/idiomatic-robotframework/blob/master/examples/listener.py).
