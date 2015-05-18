@@ -26,9 +26,9 @@ layout: default
       {% endif %}
       <span class="page_number ">{{ paginator.page }} of {{ paginator.total_pages }}</span>
       {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}" class="next">&raquo;</a>
+      <a href="{{ paginator.next_page_path }}" class="next"><i class="fa fa-arrow-left"></i></a>
       {% else %}
-      <span class="next ">&raquo;</span>
+      <span class="next "><i class="fa fa-arrow-right"></i></span>
       {% endif %}
   </div>
 
