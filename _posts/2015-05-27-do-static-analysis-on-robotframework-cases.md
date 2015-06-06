@@ -4,7 +4,7 @@ title:  "Do static analysis on RobotFramework cases"
 date:   2015-05-27 21:12:00
 categories: TA
 ---
-As we know, "static analysis" is valuable and important in developing work. Many geneous tools like `lint`, `klocwork`, `pyflakes` and `jshint` help the developer to find the problems earlier.
+As we know, "static analysis" is valuable and important in developing work. Many genious tools like `lint`, `klocwork`, `pyflakes` and `jshint` help the developer to find the problems earlier.
 
 `Test Automation` is another style of developing work, but unfortunately we always ignore its quality. The result is, in most scenarios, the Test Automation asserts are hard to maintained and unefficiency.
 
