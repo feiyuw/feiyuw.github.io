@@ -11,9 +11,10 @@ categories: TA
 Now it is time to combine them together.
 
 ## With a suite file
-In most scenario, you have a suite file already, and based on it, you may add steps, check the result and so on.
 
+In most scenario, you have a suite file already, and based on it, you may add steps, check the result and so on.
 Go through the `run` method of RobotFramework, it is as below:
+
 ```python
 if not settings:
     settings = RobotSettings(options)
@@ -34,6 +35,7 @@ Debugging is based on the `keyword` steps, we want to execute some `keyword`, an
 Let's start!
 
 ### 1. Build runner
+
 ```python
 from robot.api import TestSuiteBuilder
 

@@ -104,7 +104,7 @@ Add library to the test case.
 Library     lib.py
 
 *** Test Cases ***
-test listener in thread
+Stop test by signal
     Just Test Step
 
 *** Keywords ***
