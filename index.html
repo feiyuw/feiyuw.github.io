@@ -24,7 +24,7 @@ layout: default
       {% else %}
       <span class="previous"><i class="fa fa-backward"></i></span>
       {% endif %}
-      <span class="page_number ">{{ paginator.page }} of {{ paginator.total_pages }}</span>
+      <span class="page_number ">{{ paginator.page }} / {{ paginator.total_pages }}</span>
       {% if paginator.next_page %}
       <a href="{{ paginator.next_page_path }}" class="next"><i class="fa fa-forward"></i></a>
       {% else %}
