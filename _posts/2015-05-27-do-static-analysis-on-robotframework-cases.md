@@ -27,7 +27,7 @@ As the cases of RobotFramework may be saved as a HTML, a txt or csv file, we car
 * show hard coded warning
 * show case duplication warning
 * show dry-run warning or errors
-* show no __init__.html warning (neither setup nor teardown defined)
+* show no \_\_init\_\_ file warning (neither setup nor teardown defined)
 * use "Run Keyword and Ignore Error" but no return value used warning
 * performance issue warning like using sleep
 * complexity checking
