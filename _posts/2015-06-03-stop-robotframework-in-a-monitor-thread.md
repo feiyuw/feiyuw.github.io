@@ -75,7 +75,7 @@ It is OK, but the problem is we cannot detect it is a user interrupt log or moni
 
 ### Different signal in library - OK
 
-The third try is putting the code in a keyword, and use `SIGUSR1`, as `SIGINT`, `SIGTERM` and `SIGALRM` are used in `RobotFramework` already.
+The third try is putting the code in a keyword, and use `SIGUSR1`, as `SIGINT`, `SIGTERM` and `SIGALRM` are used in `RobotFramework` already. The code is as below and on gist https://gist.github.com/feiyuw/76faf6cfdf087a9a04a2
 
 ```python
 # lib.py
