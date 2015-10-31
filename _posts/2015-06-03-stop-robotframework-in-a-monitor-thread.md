@@ -19,7 +19,7 @@ The first version is like below:
 import thread
 import os
 from robot.running import EXECUTION_CONTEXTS
-from robot.running.keywords import Keyword
+from robot.running import Keyword
 
 class RaiseFatalErrorInThread:
     ROBOT_LISTENER_API_VERSION = 2
@@ -81,7 +81,7 @@ The third try is putting the code in a keyword, and use `SIGUSR1`, as `SIGINT`, 
 # lib.py
 import signal
 from robot.running import EXECUTION_CONTEXTS
-from robot.running.keywords import Keyword
+from robot.running import Keyword
 import thread
 import os
 
