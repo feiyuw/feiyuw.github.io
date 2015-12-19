@@ -1,6 +1,9 @@
-@(程序设计)[chromebook]
-# 使用chromebook打造穷人版移动办公平台
-
+---
+layout: post
+title:  "使用chromebook打造穷人版移动办公平台"
+date:   2015-12-19 14:58:00
+categories: Life
+---
 很早就听说chromebook的大名，知道它是google基于linux平台打造的chrome os，特点是一切应用皆在web，国内没有发售。
 
 就如同当年的kindle 3一样，我对这种比较酷炫而又价格平民的产品总有一些期待。前两个月在hi-pda论坛上，ID为“母鸡兄”的商家以1000出头的价格出了一批chrome pixel，顿时掀起一股chromebook的热潮，而我也重新点燃了对这个平台的兴趣。
