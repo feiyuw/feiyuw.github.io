@@ -10,7 +10,7 @@ github_username:  feiyuw
 paginate: 10
 
 # Build settings
-markdown: redcarpet
+markdown: kramdown
 permalink: pretty
 
 gems:
