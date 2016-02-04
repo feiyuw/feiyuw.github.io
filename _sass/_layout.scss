@@ -202,12 +202,15 @@
     display: inline-block;
     margin-top: 0;
     margin-left: -15px;
-    padding: 5px 10px 5px 25px;
+    padding: 5px 10px 5px 15px;
     white-space: nowrap;
-    background-color: lightgrey;
+    background-color: #268bd2;
     opacity: 0.8;
 }
-
+a.post-link {
+    color: lightgray;
+    text-decoration: none;
+}
 
 
 /**
