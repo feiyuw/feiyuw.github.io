@@ -204,7 +204,7 @@
     margin-left: -15px;
     padding: 5px 10px 5px 15px;
     white-space: nowrap;
-    background-color: #268bd2;
+    background-color: $title-background-color;
     opacity: 0.8;
 }
 a.post-link {
@@ -224,6 +224,15 @@ a.post-link {
     font-size: 42px;
     letter-spacing: -1px;
     line-height: 1;
+    line-height: normal;
+    display: inline-block;
+    margin-top: 0;
+    margin-left: -15px;
+    padding: 5px 10px 5px 15px;
+    white-space: nowrap;
+    background-color: $title-background-color;
+    opacity: 0.8;
+    color: lightgoldenrodyellow;
 
     @include media-query($on-laptop) {
         font-size: 36px;
@@ -260,7 +269,7 @@ a.post-link {
 .post-prev, .post-next {
     margin-bottom: 5px;
     padding: 5px 10px 5px 15px;
-    background-color: #268bd2;
+    background-color: $title-background-color;
     opacity: 0.8;
 }
 .post-next {
