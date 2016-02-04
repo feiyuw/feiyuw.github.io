@@ -12,7 +12,6 @@ paginate: 10
 # Build settings
 markdown: kramdown
 permalink: pretty
-highlighter: pygments
 
 gems:
   - jekyll-sitemap
