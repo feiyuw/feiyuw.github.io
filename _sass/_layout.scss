@@ -188,8 +188,18 @@
 }
 
 .post-link {
-    display: block;
+    position: relative;
+    font-weight: normal;
     font-size: 24px;
+    margin-bottom: 2px;
+    line-height: normal;
+    display: inline-block;
+    margin-top: 0;
+    margin-left: -15px;
+    padding: 5px 10px 5px 25px;
+    white-space: nowrap;
+    background-color: lightgrey;
+    opacity: 0.8;
 }
 
 
