@@ -2,8 +2,7 @@
  * Syntax highlighting styles
  */
 .highlight {
-    background: #fdf6e3;
-    text-color: grey;
+    background: #fff;
     @extend %vertical-rhythm;
 
     .c     { color: #998; font-style: italic } // Comment
