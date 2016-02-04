@@ -208,7 +208,7 @@
     opacity: 0.8;
 }
 a.post-link {
-    color: lightgray;
+    color: lightgoldenrodyellow;
     text-decoration: none;
 }
 
@@ -229,6 +229,7 @@ a.post-link {
     background-color: $title-background-color;
     opacity: 0.8;
     color: lightgoldenrodyellow;
+    border-radius: 5px;
 
     @include media-query($on-laptop) {
         font-size: 36px;
@@ -240,6 +241,7 @@ a.post-link {
     background-color: #eee8d5;
     padding: 15px;
     margin-left: -15px;
+    border-radius: 5px;
 
     h2 {
         font-size: 32px;
@@ -270,6 +272,8 @@ a.post-link {
     padding: 5px 10px 5px 15px;
     background-color: $title-background-color;
     opacity: 0.8;
+    border-radius: 5px;
+    font-size: 1.5em;
 }
 .post-prev {
     margin-left: -15px;
@@ -280,4 +284,10 @@ a.post-link {
 a.post-prev, a.post-next {
     color: lightgray;
     text-decoration: none;
+}
+.post-category {
+    background-color: #eee8d5;
+    padding: 5px;
+    margin-left: 25px;
+    border-radius: 5px;
 }
