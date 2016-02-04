@@ -2,7 +2,7 @@
 title: The Blog of Zhang Yu
 email: feiyuw@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Think less, do more!
+  A man can't just sit around!
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://blog.zhangyu.so" # the base hostname & protocol for your site
 twitter_username: feiyuw

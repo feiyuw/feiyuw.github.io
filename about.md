@@ -4,8 +4,12 @@ title: About
 permalink: /about/
 ---
 
+I'm Zhang Yu(张裕), a SET(Software Engineer for Testing) of NSB(Nokia Shanghai Bell).
+
+I have some experiences on `Test Automation`, `Continuous Integration` and `Continuous Delivery`.
+
+`Python` is my preferred language, I also love `NodeJS` and `data mining and virtualization`.
+I use `VIM` to write everything, and I'm a fans of `Amazon Kindle`.
+
 ![my photo]({{ site.url }}/assets/my.jpg)
 
-I'm Zhang Yu(张裕), a Test Automation Coach of Nokia Networks. I have some experience on Test Automation, Continuous Integration and Continuous Delivery.
-
-I love Python, NodeJS, data virtualization and VIM. I'm also a kindle fans.
