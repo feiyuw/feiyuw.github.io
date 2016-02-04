@@ -257,3 +257,16 @@ a.post-link {
         }
     }
 }
+.post-prev, .post-next {
+    margin-bottom: 5px;
+    padding: 5px 10px 5px 15px;
+    background-color: #268bd2;
+    opacity: 0.8;
+}
+.post-next {
+    float: right;
+}
+a.post-prev, a.post-next {
+    color: lightgray;
+    text-decoration: none;
+}
