@@ -241,6 +241,9 @@ a.post-link {
 
 .post-content {
     margin-bottom: $spacing-unit;
+    background-color: #eee8d5;
+    padding: 15px;
+    margin-left: -15px;
 
     h2 {
         font-size: 32px;
@@ -271,6 +274,9 @@ a.post-link {
     padding: 5px 10px 5px 15px;
     background-color: $title-background-color;
     opacity: 0.8;
+}
+.post-prev {
+    margin-left: -15px;
 }
 .post-next {
     float: right;
