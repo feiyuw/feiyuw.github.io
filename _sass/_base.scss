@@ -115,12 +115,10 @@ a {
  */
 blockquote {
     color: $grey-color;
-    border-left: 4px solid $grey-color-light;
-    padding-left: $spacing-unit / 2;
-    font-size: 18px;
-    letter-spacing: -1px;
-    font-style: italic;
-    background-color: lighten($background-color, 2%);
+    padding: 0.8em;
+    font-size: 1.5em;
+    background-color: lightgoldenrodyellow;
+    border-radius: 5px;
 
     > :last-child {
         margin-bottom: 0;
@@ -136,7 +134,7 @@ pre,
 code {
     font-size: 15px;
     border: 1px solid $grey-color-light;
-    border-radius: 3px;
+    border-radius: 5px;
     background-color: lightgoldenrodyellow;
 }
 
@@ -146,7 +144,6 @@ code {
 
 pre {
     padding: 8px 12px;
-    overflow-x: scroll;
 
     > code {
         border: 0;
