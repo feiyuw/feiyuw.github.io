@@ -186,6 +186,10 @@
         padding-left: 15px;
         padding-right: 5px;
     }
+
+    > li:hover {
+        background-color: darken(#eee8d5, 25%);
+    }
 }
 
 .post-meta {
