@@ -3,6 +3,11 @@ layout: default
 ---
 
 <div class="home">
+  <div class="category-list">
+    {% for category in site.categories %}
+    <label class="site-category">{{ category[0] }}({{ category[1].size }})</label>
+    {% endfor %}
+  </div>
 
   <ul class="post-list">
     {% for post in paginator.posts %}
