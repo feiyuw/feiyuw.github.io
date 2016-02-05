@@ -2,7 +2,6 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $grey-color-dark;
     border-bottom: 1px solid $grey-color-light;
     min-height: 56px;
 
@@ -21,6 +20,10 @@
     &:visited {
         color: $grey-color-dark;
     }
+}
+
+.site-title:hover {
+    text-decoration: none;
 }
 
 .site-nav {
