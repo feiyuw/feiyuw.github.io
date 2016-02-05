@@ -71,9 +71,13 @@ At this moment, I wrote some test robot cases to verify the script, the developi
 '''
 A lint tool for robotframework cases, only one py file script.
 
-There is one lint tool for robotframework on github https://github.com/boakley/robotframework-lint, but it only support static analysis on plain text. We have many case in html format, and once more, the parsed robotframework suite also need to check. So I write this script here.
+There is one lint tool for robotframework on github https://github.com/boakley/robotframework-lint,
+but it only support static analysis on plain text.
+We have many case in html format, and once more, the parsed robotframework suite also need to check.
+So I write this script here.
 
-Robotframework best practices: http://becrtt01.china.nsn-net.net/cleancode/codingcookbook/blob/master/robotframework_best_practices.md
+Robotframework best practices:
+    http://becrtt01.china.nsn-net.net/cleancode/codingcookbook/blob/master/robotframework_best_practices.md
 
 Supported checking points:
 
@@ -404,7 +408,8 @@ class KeywordInvalidUsageChecker(_BaseChecker):
     def _check_run_keyword_and_ignore_error(self, _kw):
         if _kw.name == 'Run Keyword and Ignore Error' and not _kw.assign:
             self.add_finding('keyword', _kw.name,
-                    'using "Run Keyword and Ignore Error" but with no return value used, "Run Keyword And Continue On Failure" is your choice')
+                    'using "Run Keyword and Ignore Error" but with no return value used, \
+                    "Run Keyword And Continue On Failure" is your choice')
 
     def _check_recursive_calling(self, _kw):
         parent = _kw.parent
