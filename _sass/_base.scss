@@ -8,6 +8,12 @@ dl, dd, ol, ul, figure {
     padding: 0;
 }
 
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
 
 
 /**
@@ -114,6 +120,7 @@ blockquote {
     font-size: 18px;
     letter-spacing: -1px;
     font-style: italic;
+    background-color: lighten($background-color, 2%);
 
     > :last-child {
         margin-bottom: 0;
