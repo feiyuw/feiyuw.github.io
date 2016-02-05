@@ -274,6 +274,11 @@ a.post-link {
             font-size: 18px;
         }
     }
+
+    ol, ul {
+        padding: 1em 2em;
+        background-color: lightgoldenrodyellow;
+    }
 }
 .post-prev, .post-next {
     margin-bottom: 5px;
