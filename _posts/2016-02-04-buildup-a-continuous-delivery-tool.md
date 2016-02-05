@@ -7,31 +7,60 @@ categories: Programming
 ## 前言
 [持续交付系统](https://en.wikipedia.org/wiki/Continuous_delivery)或者[持续集成系统](https://en.wikipedia.org/wiki/Continuous_integration)是现代软件开发不可或缺的基础设施，尤其在大型项目中，**持续交付系统**的质量和效率往往极大影响开发的质量和效率。许多大型软件项目甚至有一个或多个专门的团队来开发和维护这类系统。另外，**持续交付系统**包含软件研发中的大量一手数据，很好地挖掘这些数据，也可以得到很多有价值的信息。
 
-市面上有很多商业的和开源的持续交付系统的解决方案，如[Bambook](https://www.atlassian.com/software/bamboo/)，[Jenkins](http://jenkins-ci.org)，与github深度集成的[Travis-CI](http://travis-ci.org)等，另外在8.0+版本的[gitlab](http://gitlab.org)里也将gitlab-ci集成了进去，作为内置的持续交付平台。
+市面上有很多商业和开源的持续交付解决方案，如[Bambook](https://www.atlassian.com/software/bamboo/)，[Jenkins](http://jenkins-ci.org)，与github深度集成的[Travis-CI](http://travis-ci.org)，面向创业团队的[CodeShip](https://codeship.com/)，酷酷的[Drone-CI](https://drone.io/)等。另外在8.0+版本的[gitlab](http://gitlab.org)里也将gitlab-ci集成了进去，作为内置的持续交付平台。
 
-既然已经有这么多现成的工具了，那么为什么我们还要自己写一套持续交付系统呢？
+既然已经有这么多现成的工具了，那么为什么我们还要自己写一套持续交付系统呢？换言之，你为什么要重复造轮子？
 
-1. 写一个持续交付系统很有趣
-1. 可以完美适配自己的开发流程
-1. 可以整合其他既有的资源，如报表系统等
+重复造轮子这顶帽子太大，咱们只是在重复实现轮子，因为：
+
+* 写一个持续交付系统很有趣
+* 可以通过编写这个系统来实践分布式系统的搭建
+* 可以完美适配自己的开发流程
+* 可以整合其他既有的资源，如报表系统等
+* 可以拿来吹牛～～
 
 那么，一个**持续交付系统**需要包含哪些基本功能呢？
 
-1. 与版本控制工具如[subversion](http://subversion.apache.org/)、[git](http://git-scm.com/)的集成
-1. 执行节点的管理
-1. 执行内容的可定制化
-1. 结果保存和查看
-1. 反馈与通知
+1. 能够集成版本控制工具如[subversion](http://subversion.apache.org/)、[git](http://git-scm.com/)
+1. 能够将任务分发到多个节点上执行
+1. 可以定制执行的内容
+1. 能够保存执行的日志
+1. 能够方便地查看执行的结果和日志
+1. 能够及时地发送反馈和通知
 
 所以，一个**持续交付系统**至少具有：
 
 * 一个可视化的界面（通常是Web）
 * 一个数据库或文件系统（用于保存配置和执行结果）
-* 一个定时任务工具（用于检测代码版本的变化和发送通知等）。
+* 一个节点管理和分发工具（用于将任务分发到不同节点上执行）
+* 一个定时任务工具（用于检测代码版本的变化和发送通知等）
 
-这里，笔者希望通过一个具体的例子来展示一下如何开发一个持续交付系统，这个进行中的项目的地址在[github](http://github.com/lybicat/)。
+这里，笔者希望通过一个具体的例子来展示一下如何开发一个持续交付系统。这个进行中的项目叫`lybica`，它的地址在[lybicat@github](http://github.com/lybicat/)，目前它还是一个玩具，将来，谁知道呢？
 
 ## 从界面开始
+
+### 第一个页面
+
+在开始设计界面之前，让我们先回答一个问题：假设只能有一个页面，这个页面该展示什么？此处默念三十秒。。。
+
+`lybica`的第一个页面是任务队列（包括没开始执行的、执行中的和已经结束的任务）。最基本的部分就是一个包含所有task的表格，如下图：
+
+![task list]({{ site.url }}/assets/cd-tasks.png)
+
+在这个页面上，一个Task包含如下信息：
+
+* 状态(pending, running, pass, failed, aborted)
+* 目标版本（这里叫Build，本质上跟Revision类似）
+* 测试计划（对应与Jenkins里的Job，包含执行内容等配置）
+* 执行节点（这个任务将会被分配到的目标节点）
+* 触发源（如Git的变化、手工触发、按时间触发等）
+* 创建时间
+* 相应的Action（如Rerun，Abort等）
+* 相应的资源链接（如Console Output，Log Artifacts等）
+
+其实这里隐含这我们的第一个用户场景，可能也是最重要的那个：
+
+>作为一个开发者，当我在持续交付系统上注册了我的项目，并且配置好了相应的执行计划后，我希望当这个计划被执行后能够生成任务，并且我能够看到任务的各种信息，如成功、失败，相应的日志等。
 
 [TODO]
 
