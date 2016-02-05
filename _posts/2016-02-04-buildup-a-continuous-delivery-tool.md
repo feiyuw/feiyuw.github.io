@@ -134,9 +134,118 @@ categories: Programming
 
 ![console output]({{ site.url }}/assets/cd-console.png)
 
+---
+
 ## 数据的保存
 
-[TODO]
+这里的数据指的是控制数据，即用户配置的Trigger，Plan以及执行的Task等。Jenkins采用xml文件来存储这些内容，而笔者更倾向于数据库。
+在`lybica`这个项目中，数据存储采用了MongoDB。之所以用它而不是像MySQL这样的关系型数据库，主要是为了更方便地应对变化。以Trigger为例，SVN和Web在数据结构上就有很大的不同，比如SVN需要认证，要解析的是revision号，web考虑的是内容本身，可能需要带token等等。
+
+`lybica`系统采用了mongoose作为数据持久话方案，以Trigger为例，它的model如下：
+
+```javascript
+var triggerSchema = mongoose.Schema({
+  name: String,
+  type: String,
+  url: String,
+  content: Mixed,
+  createby: {type: String, default: 'SYSTEM'},
+  createat: {type: Date, default: Date.now},
+  updateby: {type: String, default: 'SYSTEM'},
+  updateat: {type: Date, default: Date.now},
+  disabled: {type: Boolean, default: false},
+  removed: {type: Boolean, default: false},
+});
+triggerSchema.plugin(mongoosePaginate);
+module.exports.Trigger = mongoose.model('trigger', triggerSchema);
+```
+
+相对于Django、Ruby on Rails那样All In One的框架，在这里轻量级的框架可能更合适。而我们所需要的本质上是一个数据的存取服务，所以这里采用RESTful的方式，用了一个NodeJS的小框架[restify](http://restify.com/)。
+
+而API的设计我们只关注对象本身（如Task，Plan，Trigger等），而所有的API就是针对这些对象的增、删、改操作。
+
+以`lybica`系统的Trigger API为例：
+
+```javascript
+module.exports = {
+  '/api/triggers': {
+    get: function(req, res, next) {
+      var filterCond = _.clone(req.params);
+      delete filterCond.page;
+      delete filterCond.limit;
+
+      filterCond.removed = filterCond.removed === 'true';
+
+      return filterObjects(Trigger, filterCond, '-updateat', req, res, next);
+    },
+    post: function(req, res, next) {
+      var trigger = new Trigger();
+      _.keys(req.body).forEach(function(attr) {
+        trigger[attr] = req.body[attr];
+      });
+      trigger.save(function(err, p) {
+        if (err) return next(err);
+        return res.send(200, {id: p._id});
+      });
+    },
+  },
+  '/api/trigger/:id': {
+    get: function(req, res, next) {
+      Trigger.findById(req.params.id)
+      .then(function(trigger) {
+        if (trigger === null) return res.send(404);
+
+        return res.send(trigger);
+      });
+    },
+    post: function(req, res, next) {
+      Trigger.findById(req.params.id)
+      .then(function(trigger) {
+        if (trigger === null) return res.send(404);
+
+        _.keys(req.body).forEach(function(k) {
+          trigger[k] = req.body[k];
+        });
+        trigger.save().then(function(t) {
+          return res.send(200, t);
+        });
+      });
+    },
+    del: function(req, res, next) {
+      Trigger.findByIdAndUpdate(req.params.id, {$set: {removed: true}}, function(err, trigger) {
+        if (err) return next(err);
+
+        return res.send(200);
+      });
+    }
+  },
+  '/api/trigger/:id/enable': {
+    put: function(req, res, next) {
+      Trigger.findByIdAndUpdate(req.params.id, {$set: {disabled: false}}, function(err, trigger) {
+        if (err) return next(err);
+
+        return res.send(200);
+      })
+    }
+  },
+  '/api/trigger/:id/disable': {
+    put: function(req, res, next) {
+      Trigger.findByIdAndUpdate(req.params.id, {$set: {disabled: true}}, function(err, trigger) {
+        if (err) return next(err);
+
+        return res.send(200);
+      })
+    }
+  },
+};
+```
+
+可以看到，我们重复利用了HTTP的method来定义不同的操作类型：
+
+* GET用于获取数据
+* POST用于创建数据
+* PUT用于更新数据
+* DELETE用于删除数据。
 
 ---
 
@@ -149,6 +258,7 @@ categories: Programming
 ## 实时查看执行的结果
 
 Jenkins的实现方式是，所有的job的`Console Output`都是以文件形式存储在Jenkins Master上的，通过管道的方式把输出不断地append到那个名叫log的文件中。所以在Jenkins上，如果job很多，build次数很多，IO性能会有比较大的影响，有一部分原因就是因为它所有的builds和console output都是以文件形式存储在master上的。
+
 [TODO]
 
 ---
