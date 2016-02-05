@@ -276,18 +276,18 @@ Jenkins在这方面常用的做法是将所有的日志都保存在master上，�
 
 从实现上，我们会在数据服务上同时起一个websocket服务端，而每个执行节点，会作为一个websocket客户端与之通信，当有任务过来的时候，服务端会把任务分配给客户端。我们希望这个客户端尽可能地简单，以避免以后频繁升级的麻烦。以下为一个简单的工作流：
 
-```
------client---------------------server------
-        |    ---connect--->       |    (1)
-        |    <--identify---       |    (2)
-        |    ----agent---->       |    (3)
-        |    <---task------       |    (4)
-        |    ----start---->       |    (5)
-        |    -----done---->       |    (6)
-        |    --disconnect->       |    (7)
+```sequence
+client->server: (1)connect
+server->client: (2)identify
+client->server: (3)agent
+server->client: (4)task
+client->server: (5)start
+client->server: (6)done
+client-->server: (7)error
+client->server: (8)disconnect
 ```
 
-简单说明一下以上1-7步具体的操作：
+简单说明一下以上1-8步具体的操作：
 
 1. 客户端启动，连上服务端
 1. 服务端将客户端的唯一标识分配给它，通常为IP地址
@@ -295,6 +295,7 @@ Jenkins在这方面常用的做法是将所有的日志都保存在master上，�
 1. 服务端分配任务给客户端
 1. 客户端上报服务端开始执行任务
 1. 客户端上报服务端任务结束
+1. 当客户端遇到错误的时候，上报错误信息给服务端
 1. 如果客户端不再使用，结束进程，关闭与服务端的连接
 
 对于websocket服务端，可以参照[ws.js](https://github.com/lybicat/lybica-platform/blob/master/ws.js)。
