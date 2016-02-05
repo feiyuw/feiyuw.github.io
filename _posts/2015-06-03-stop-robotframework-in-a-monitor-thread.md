@@ -98,7 +98,7 @@ def do_error_log_monitoring():
 
 Add library to the test case.
 
-```robotframework
+```robot
 # test.robot
 *** Settings ***
 Library     lib.py

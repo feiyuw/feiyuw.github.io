@@ -12,27 +12,27 @@ I wrote a simple static analysis script for [RobotFramework](http://robotframewo
 
 As the cases of RobotFramework may be saved as a HTML, a txt or csv file, we care about the logical structure instead of the plain text. So in the first step, I decided to rely on `robot.api`, and listed the checkpoints as below:
 
-* show bad suite/case/keyword/variable name warning
-* show too little test cases in one suite warning
-* show too many test cases in one suite warning
-* show some dangerous keywords like (Fatal Error) usage warning (or error)
-* show too many steps in one test case warning
-* show too little steps in one test case warning
-* show too many steps in one keyword warning
-* show mandentory tags missing warning
-* show too many arguments in one keyword warning
-* show set suite variable/set test variable invalid usage warning
-* show set global variable usage warning
-* show deprecated keywords used warning
-* show hard coded warning
-* show case duplication warning
-* show dry-run warning or errors
-* show no \_\_init\_\_ file warning (neither setup nor teardown defined)
-* use "Run Keyword and Ignore Error" but no return value used warning
-* performance issue warning like using sleep
-* complexity checking
-* dependency checking
-* recursive calling checking
+    1. show bad suite/case/keyword/variable name warning
+    2. show too little test cases in one suite warning
+    3. show too many test cases in one suite warning
+    4. show some dangerous keywords like (Fatal Error) usage warning (or error)
+    5. show too many steps in one test case warning
+    6. show too little steps in one test case warning
+    7. show too many steps in one keyword warning
+    8. show mandentory tags missing warning
+    9. show too many arguments in one keyword warning
+    10. show set suite variable/set test variable invalid usage warning
+    11. show set global variable usage warning
+    12. show deprecated keywords used warning
+    13. show hard coded warning
+    14. show case duplication warning
+    15. show dry-run warning or errors
+    16. show no \_\_init\_\_ file warning (neither setup nor teardown defined)
+    17. use "Run Keyword and Ignore Error" but no return value used warning
+    18. performance issue warning like using sleep
+    19. complexity checking
+    20. dependency checking
+    21. recursive calling checking
 
 In the same time, I found the operation I did was similar as a robot listener. And after reading the code of `RobotFramework`, I found it has provided a class called `robot.result.visitor.SuiteVisitor`, it helps to do the work to walk through the whole suite.
 
