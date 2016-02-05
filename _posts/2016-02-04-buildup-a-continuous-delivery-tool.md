@@ -266,6 +266,12 @@ Jenkins在这方面常用的做法是将所有的日志都保存在master上，�
 
 具体的实现，可以参照[lybica-hdfs-viewer](https://github.com/lybicat/lybica-hdfs-viewer/)。
 
+---
+
+## 管理执行节点
+
+[TODO]
+
 至此，我们有了一个简单的应用架构图。
 
 ![architecture]({{ site.url }}/assets/cd-arch.png)
@@ -275,12 +281,6 @@ Jenkins在这方面常用的做法是将所有的日志都保存在master上，�
 ## 实时查看执行的结果
 
 Jenkins的实现方式是，所有的job的`Console Output`都是以文件形式存储在Jenkins Master上的，通过管道的方式把输出不断地append到那个名叫log的文件中。所以在Jenkins上，如果job很多，build次数很多，IO性能会有比较大的影响，有一部分原因就是因为它所有的builds和console output都是以文件形式存储在master上的。
-
-[TODO]
-
----
-
-## 如何管理执行节点
 
 [TODO]
 
