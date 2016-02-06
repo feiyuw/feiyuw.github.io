@@ -173,7 +173,18 @@
 }
 
 .pagination {
-    text-align: center;
+    text-align: left;
+    > span.previous, > span.next {
+        background-color: #eee8d5;
+        padding: 5px 25px;
+    }
+    .page_number {
+        background-color: #eee8d5;
+        padding: 5px;
+        margin-left: -5px;
+        margin-right: -5px;
+        font-weight: bold;
+    }
 }
 
 .post-list {
