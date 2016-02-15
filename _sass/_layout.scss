@@ -211,7 +211,7 @@
     color: $grey-color;
 }
 
-.post-link {
+a.post-link {
     position: relative;
     font-weight: normal;
     font-size: 24px;
@@ -227,7 +227,7 @@
     color: lightgoldenrodyellow;
     text-decoration: none;
 }
-.post-link::after {
+a.post-link::after {
     content: " ";
     display: block;
     border-bottom: 4px solid darken($title-background-color, 25%);
