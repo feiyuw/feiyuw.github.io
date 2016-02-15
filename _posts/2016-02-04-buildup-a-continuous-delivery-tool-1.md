@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "自己动手编写持续交付系统"
+title:  "自己动手编写持续交付系统（一）"
 date:   2016-02-04 10:00:00
 categories: Programming
 ---
@@ -293,10 +293,6 @@ Jenkins在这方面常用的做法是将所有的日志都保存在master上，�
 对于websocket服务端，可以参照[ws.js](https://github.com/lybicat/lybica-platform/blob/master/ws.js)。
 
 对于websocket客户端，可以参照[lybica-agent](https://github.com/lybicat/lybica-agent/)。
-
-至此，我们已经讨论了应用的大概骨架，就产生了一个简单的应用架构图。
-
-![architecture]({{ site.url }}/assets/cd-arch.png)
 
 ---
 
