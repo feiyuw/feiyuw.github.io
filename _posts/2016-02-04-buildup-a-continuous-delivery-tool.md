@@ -340,5 +340,11 @@ Lybica的Platform（可以类比于Jenkins Master）以数据库的形式保存�
 
 ## 7. 优雅地部署和升级
 
-[TODO]
+Jenkins的插件部署和升级，对于一个**繁忙**的系统来说是个麻烦。因为在这个中间，需要等待所有正在执行的任务结束，并重启Jenkins服务。而这个期间如果遇到问题需要回退，也需要等待任务结束并重启。
+
+而我们真正需要的是一个**优雅**的系统，就像facebook，即使每周都在更新，但是用户却从未受到打扰。
+
+`lybica`把Web，数据服务和Agent独立成不同的project。Web是真正的**静态**网站，而数据服务也仅仅是数据API。数据服务`lybica-platform`和Agent服务`lybica-agent`都是nodejs应用，借助于[pm2](http://pm2.keymetrics.io/)，可以实现在代码更新后的服务更新只需一条`pm2 restart all`，而对于HTTP服务来说，这个时间足够短暂。
+
+而在部署上，[docker](http://docker.io/)是一个很好的方案。
 
