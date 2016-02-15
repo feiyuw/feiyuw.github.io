@@ -323,9 +323,18 @@ setInterval(poll, 60000);
 
 对于单元测试或者其他轻量级的测试来说，测试的时间一般很短，几秒至几分钟就结束了。但是对于端到端的自动化测试或者其他诸如稳定性测试、性能测试等，这个测试时间可以很长，长达数小时至数天。这个时候，对于执行情况的实时查看就变得比较重要了。这里我们比较一下Jenkins和Lybica的两种实现方式。
 
-Jenkins的实现方式是，所有的job的`Console Output`都是以文件形式存储在Jenkins Master上的，通过管道的方式把输出不断地append到那个名叫log的文件中。所以在Jenkins上，如果job很多，build次数很多，IO性能会有比较大的影响，有一部分原因就是因为它所有的builds和console output都是以文件形式存储在master上的。
+Jenkins的实现方式是，所有的job的`Console Output`都是以文件形式存储在Jenkins Master上的，通过管道的方式把输出不断地append到那个名叫log的文件中。访问的时候，通过HTTP访问那个log文件，以polling的方式来不断获取文件的更新，从而达到实时查看的目的。如下图：
 
-[TODO]
+![jenkins console]({{ site.url }}/assets/cd-jenkins-console.png)
+
+Lybica的Platform（可以类比于Jenkins Master）以数据库的形式保存各种配置和任务信息，但不保存执行记录，这也包括`Console Output`。因此Lybica在这块的实现与Jenkins有些不同。在Task没有完成的时候，`Console Output`以文件形式保存在Agent（类似Jenkins Slave）上，而Task完成之后，它也会被保存到独立的存储上（这里是HDFS）。Task完成之后，查看`Console Output`和查看其它构建log没有区别，这里我们单讲Task没有完成时候，`Console Output`的查看机制。
+
+流程如下：
+
+![lybica console]({{ site.url }}/assets/cd-lybica-console.png)
+
+* 无论是用户打开的Web页面，还是Agent都是Websocket的client
+* Platform为websocket的server，所有的console数据通过server在各个client间传输
 
 ---
 
