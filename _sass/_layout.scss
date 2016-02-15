@@ -204,6 +204,10 @@
     > li:hover {
         background-color: #d6d6c6;
     }
+
+    p {
+        font-size: $base-font-size;
+    }
 }
 
 .post-meta {
