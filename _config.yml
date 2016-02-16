@@ -14,18 +14,6 @@ timezone: Asia/Shanghai
 markdown: kramdown
 permalink: pretty
 
-jekyll-archives:
-  enabled:
-    - categories
-  layout: "category"
-  permalinks:
-    year: "/:year/"
-    month: "/:year/:month/"
-    day: "/:year/:month/:day/"
-    tag: "/tag/:name/"
-    category: "/category/:name/"
-
 gems:
   - jekyll-sitemap
   - jekyll-paginate
-  - jekyll-archives
