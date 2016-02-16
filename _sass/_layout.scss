@@ -225,7 +225,6 @@ a.post-link {
     margin-top: 0;
     margin-left: -25px;
     padding: 5px 10px 5px 15px;
-    white-space: nowrap;
     background-color: $title-background-color;
     opacity: 0.8;
     color: lightgoldenrodyellow;
@@ -256,7 +255,6 @@ a.post-link::after {
     margin-top: 0;
     margin-left: -15px;
     padding: 5px 10px 5px 15px;
-    white-space: nowrap;
     background-color: $title-background-color;
     opacity: 0.8;
     color: lightgoldenrodyellow;
