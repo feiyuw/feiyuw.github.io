@@ -8,6 +8,7 @@ url: "http://blog.zhangyu.so" # the base hostname & protocol for your site
 twitter_username: feiyuw
 github_username:  feiyuw
 paginate: 10
+timezone: Asia/Shanghai
 
 # Build settings
 markdown: kramdown
