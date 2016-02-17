@@ -9,6 +9,8 @@ There is a common scenario in a TA solution, during the execution of a series of
 
 In `RobotFramework`, there is no built-in support for it, but we can write our own.
 
+---
+
 ### First try - failed
 
 At the first time I consider this problem (it is raised by Ju Fei), I think execute the specified keyword like `Fatal Error` in the monitoring thread can do this task. And I think writing it as a listener is a good choice.
@@ -49,7 +51,10 @@ Just Test Step
 
 Run the test with command `pybot --listener listener.RaiseFatalErrorInThread test.robot`, but it failed to generate the log.html, and the case did not stop as expected.
 
+---
+
 ### Using signal - OK
+
 Checking the source code of `robot.running.EXECUTION_CONTEXTS`, there is no thread switch, so it is impossible for this issue. But at the same time, I think about the `Stop Gracefully` feature in `RobotFramework`, it use `signal` to interrupt the execution. So I decide to follow it and send `SIGINT` signal to main process. The code is as below:
 
 ```python
@@ -72,6 +77,8 @@ class RaiseFatalErrorInThread:
 ```
 
 It is OK, but the problem is we cannot detect it is a user interrupt log or monitor interrupt log, there is no difference between them. And as a listener, it is not easy to use for a tester.
+
+---
 
 ### Different signal in library - OK
 

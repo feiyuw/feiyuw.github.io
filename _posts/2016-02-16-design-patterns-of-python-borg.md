@@ -10,13 +10,14 @@ categories: Python
 
 >单例模式，也叫单子模式，是一种常用的软件设计模式。在应用这个模式时，单例对象的类必须保证只有一个实例存在。许多时候整个系统只需要拥有一个的全局对象，这样有利于我们协调系统整体的行为。比如在某个服务器程序中，该服务器的配置信息存放在一个文件中，这些配置数据由一个单例对象统一读取，然后服务进程中的其他对象再通过这个单例对象获取这些配置信息。这种方式简化了在复杂环境下的配置管理。
 
+---
+
 ## import
 
 在Python语言里面，module的import就是一种典型的单例模式。先看一个例子：
 
 ```python
 # myglobal.py
-
 COUNT = 0
 ```
 
@@ -92,7 +93,7 @@ Out[4]: [None, None, None, None, None, None, None, None, None, None]
 
 `logging`是单例模式的一个非常典型的应用，因为我们的应用内部一般不去关心logging的细节，比如写到数据库还是文件，时间戳的格式等等。在应用内部，我们只关心logging的分类，内容和级别，是app的还是db的log，是warning，error还是debug。
 
-而对与logging的配置，则往往是全局的，一个系统一般只有一个配置logging的地方，它作用于所有的应用。
+而logging的配置，则是全局的，一个进程中任何地方对logging配置的修改（如增加输出到文件），都会影响到所有使用logging的地方。那么它是怎么做到的呢？
 
 看一个例子：
 
@@ -105,15 +106,14 @@ logging.debug('hello')
 
 # 在其他module中，sub.py
 import logging
-logger = logging.getLogger('sub')
-logger.info('this is the log in sub module')
+logging.info('this is the log in sub module')
 ```
 
 打印出来的log如下：
 
 ```
 2016-02-17 10:26:33,100 DEBUG root hello
-2016-02-17 10:29:18,274 INFO sub this is the log in sub module
+2016-02-17 10:29:18,274 INFO root this is the log in sub module
 ```
 
 可见两个log的行为和格式是一样的。
@@ -132,7 +132,7 @@ def info(msg, *args, **kwargs):
     root.info(msg, *args, **kwargs)
 ```
 
-可以看到具体的执行都是有root这个实例来进行的，由于root是一个module层面的实例，所以所有的logging.info都是同一个实例来进行的。
+可以看到具体的执行都是有root这个实例来进行的，由于root是一个module层面的实例，并不在info函数内部实例化，所以所有的logging.info都是同一个实例来进行的。
 
 ---
 

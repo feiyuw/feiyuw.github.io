@@ -7,6 +7,8 @@ categories: TA
 
 There are many [RobotFramework](http://robotframework.org) users, with huge amount of libraries, keywords, resources and test suites. But I guess there should be something you misunderstand of this framework. I listed some of them here, and if you have others, that should be very helpful if you post them in the comment.
 
+---
+
 ### 1. Keyword `Run Keyword and Ignore Error` does not ignore all errors
 
 Sometimes we need to ignore the keyword execution error, such as an extra IP configuration. In most scenario, we will use BuiltIn keyword `run keyword and ignore error`. But does it ignore all errors?
@@ -33,6 +35,7 @@ When `timeout` or `syntax` or `exit`, it will return `True`.
 
 OK, until now, we know there are three scenarios `run keyword and ignore error` will fail: Timeout, Syntax Error, Fatal Exception.
 
+---
 
 ### 2. Keyword `Wait Until Keyword Succeeds` will fail before timeout
 
@@ -57,6 +60,8 @@ while True:
 
 It raise in `err.dont_continue` too. Same as the previous one.
 
+
+---
 
 ### 3. RobotFramework will continue do the execution even if some keywords fail in teardown
 
@@ -99,6 +104,8 @@ def can_continue(self, teardown=False, templated=False, dry_run=False):
 ```
 
 So everything is clear, when the keyword is in the teardown, it will not fail immediately.
+
+---
 
 ### 4. `Stop Gracefully` in `jybot` will not stop immediately
 
