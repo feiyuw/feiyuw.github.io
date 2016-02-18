@@ -157,6 +157,19 @@ def index(name):
 run(host='localhost', port=8080)
 ```
 
+从名字就可以知道，route是一个路由装饰器，它的实现如下：
+
+```python
+def make_default_app_wrapper(name):
+    ''' Return a callable that relays calls to the current default app. '''
+    @functools.wraps(getattr(Bottle, name))
+    def wrapper(*a, **ka):
+        return getattr(app(), name)(*a, **ka)
+    return wrapper
+
+route     = make_default_app_wrapper('route')
+```
+
 ### 小结
 
 装饰器模式是让应用解藕的一个非常好用的模式，对于认证、缓存、重试等需求，用该模式可以在不改变现有代码逻辑的情况下添加增强功能。
