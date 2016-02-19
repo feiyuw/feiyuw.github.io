@@ -16,3 +16,4 @@ permalink: pretty
 gems:
   - jekyll-sitemap
   - jekyll-paginate
+  - jekyll-gist
