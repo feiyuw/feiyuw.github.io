@@ -170,6 +170,25 @@ def make_default_app_wrapper(name):
 route     = make_default_app_wrapper('route')
 ```
 
+而在标准库contextlib中更是大量使用了装饰器，看一个简单的例子：
+
+```python
+import contextlib
+
+@contextlib.contextmanager
+def tag(name):
+    print "<%s>" % name
+    yield
+    print "</%s>" % name
+
+with tag('hello'):
+    print 'world'
+
+# <hello>
+# world
+# </hello>
+```
+
 ### 小结
 
 装饰器模式是让应用解藕的一个非常好用的模式，对于认证、缓存、重试等需求，用该模式可以在不改变现有代码逻辑的情况下添加增强功能。
