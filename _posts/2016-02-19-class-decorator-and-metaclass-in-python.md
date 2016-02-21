@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "在Python中使用class decorator和metaclass"
-date:   2016-02-19 13:00:00
+date:   2016-02-19 15:00:00
 categories: Python
 ---
 在Python语言中class层面的decorator和metaclass可能是绝大部分Pythoner都没有使用过的黑魔法了。笔者自问，到目前为止还没有在任何一个部署的代码中使用过这两个语言特性，对metaclass的需求也仅仅一次，最后还是用别的手段解决了。
