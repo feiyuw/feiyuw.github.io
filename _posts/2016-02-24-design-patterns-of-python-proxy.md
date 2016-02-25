@@ -66,5 +66,54 @@ proxy.resource('switch', 456) # http://remote.server/api/resource/switch/456
 
 ### 调用系统命令
 
-[TODO]
+另一个非常常见的例子是在Python中调用系统命令，比如调用ping、ls等命令。在Python中调用系统命令的代码一般像下面这样：
 
+```python
+import subprocess
+
+def ping(*args):
+    cmd = ['ping'] + [str(arg) for arg in args]
+
+    return subprocess.call(cmd)
+```
+
+由于执行命令的代码基本上都差不多，我们不希望重复去写这些逻辑。另外，每次都调用subprocess.call，在阅读上不够明了。我们真正希望的调用方式是这样的：
+
+```python
+from myshell import ping
+
+ping('-c', 5, '127.0.0.1')
+```
+
+在这里，`myshell`模块就是我们的proxy。具体怎么做呢？我们需要借助`__getattr__`和module重定义。
+
+```python
+# myshell.py
+import sys
+
+class _ShellProxy(object):
+    def __getattr__(self, cmd):
+        def run_cmd(*args):
+            import subprocess
+            return subprocess.call(['ping'] + [str(arg) for arg in args])
+
+        return run_cmd
+
+sys.modules[__name__] = _ShellProxy()
+
+# usage.py
+from myshell import ping
+from myshell import ls
+ping('-c', 5, '127.0.0.1')
+ls('/')
+```
+
+在Python中**一切皆是对象**，包括module的import，所以在from myshell import xxx的时候实际上类似于访问myshell.xxx，也就是getattr(myshell, 'xxx')。所以如果myshell模块是一个类的实例，我们就可以借助`__getattr__`来实现系统命令的路由了。
+
+要达到这个目的，我们需要将myshell模块动态替换为一个类的实例，而最后一句`sys.modules[__name__] = _ShellProxy()`就是把myshell模块重写为_ShellProxy的实例。
+
+
+### 参考
+
+* [__getattr__ in Python](https://docs.python.org/2/reference/datamodel.html#object.__getattr__)
+* [sh module of Python](https://github.com/amoffat/sh)
