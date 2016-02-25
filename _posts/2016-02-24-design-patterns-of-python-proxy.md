@@ -115,5 +115,5 @@ ls('/')
 
 ### 参考
 
-* [__getattr__ in Python](https://docs.python.org/2/reference/datamodel.html#object.__getattr__)
+* [\_\_getattr\_\_ in Python](https://docs.python.org/2/reference/datamodel.html#object.__getattr__)
 * [sh module of Python](https://github.com/amoffat/sh)
