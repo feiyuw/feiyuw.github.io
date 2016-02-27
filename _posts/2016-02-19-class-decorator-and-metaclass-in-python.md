@@ -10,6 +10,8 @@ categories: Python
 
 那么我们常见的Python库中有没有这两者的使用案例呢？
 
+---
+
 ## class decorator
 
 关于常见的Python库中使用class decorator的例子我没有找到，如果有人知道哪个库里这么使用了，麻烦留言告诉我，谢谢！～
@@ -39,7 +41,9 @@ u.length # 0
 * 如果这个类已经有`__len__`方法，就用`__len__`方法的结果
 * 如果`__len__`方法没有定义，就返回0
 
-然而，然并卵。对于这种需求，写个基类用mixin模式不是更好吗？
+然并卵，对于这种需求，写个基类用mixin模式不是更好吗？
+
+---
 
 ## metaclass
 
@@ -118,6 +122,8 @@ hasattr(u, 'name') # True
 
 可以看到我们把User类篡改了，不再有`Age`属性，而是变成了`age`。
 
+---
+
 现在，我们来看一下`django.db.models.Model`是怎么实现的。
 
 ```python
@@ -153,6 +159,8 @@ def with_metaclass(meta, *bases):
     return type.__new__(metaclass, 'temporary_class', (), {})
 ```
 
+---
+
 ## 小结
 
 99%的情况下你都不需要用class decorator和metaclass，除非你真有这个需求，而且明确自己在做什么。所以，哪怕不知道这些，其实也没有什么。。。（我这是在写的啥？）
@@ -162,6 +170,8 @@ def with_metaclass(meta, *bases):
 >Metaclasses are deeper magic that 99% of users should never worry about. If you wonder whether you need them, you don't (the people who actually need them know with certainty that they need them, and don't need an explanation about why).
 
 *Python Guru Tim Peters*
+
+---
 
 ## 参考
 
