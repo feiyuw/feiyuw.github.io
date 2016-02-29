@@ -131,6 +131,46 @@ clean_tz.value_counts()[:15].plot(kind='barh', figsize=(12, 5))
 
 ![timezone](/assets/tz15.png)
 
+#### 用户最多的User-Agent
+
+```python
+agents = Series([x.split(' ', 1)[0] for x in data.a.dropna()])
+agents.value_counts(ascending=True)[-15:].plot(kind='barh', figsize=(12, 5), logx=True) # logx=True 使用对数坐标
+```
+
+这里使用dropna丢弃了所有无效的数据，并反序得到最活跃的15个Agent。由于这些数据差异较大，X轴采用对数坐标显示。
+
+#### 找出Windows和非Windows用户的比例
+
+我们通过判断在data的a字段中是否包含Windows来判断这个请求是否来自Windows操作系统。
+
+```python
+# 找出Windows和非Windows用户的比例
+cframe = data[data.a.notnull()] # 过滤
+
+import numpy as np
+
+operating_systems = np.where(cframe['a'].str.contains('Windows'), 'Windows', 'Not Windows')
+
+by_tz_os = cframe.groupby(['tz', operating_systems])
+agg_counts = by_tz_os.size().unstack().fillna(0)
+# 排序
+indexer = agg_counts.sum(1).argsort()
+indexer[:10] # 最前面10个数据
+count_subset = agg_counts.take(indexer)[-10:] # 最后10个数据
+#count_subset.plot(kind='barh', stacked=True)
+# 看比例而不看数据
+count_subset.div(count_subset.sum(1), axis=0).plot(kind='barh', stacked=True, figsize=(10, 5))
+```
+
+对上面的代码说明如下：
+
+[TODO]
+
+最后生成的图如下：
+
+![Windows or Not](/assets/win-or-not.png)
+
 ### 例子-2：使用pandas来分析电影评分数据
 
 [TODO]
