@@ -24,13 +24,9 @@ pandas依赖于[numpy](http://www.numpy.org/)，提供了一个非常有效的�
 
 而借助于[Jupyter notebook](http://jupyter.org/)，pandas可以方便地进行数据的分析和可视化，如我学习用的[notebook](/assets/learn-pandas.ipynb)。
 
----
-
 ## iPython简介
 
 [ipython](http://ipython.org/)最初是作为一个增强型的交互式python shell创建起来的，现在它已经成为python数据分析和可视化的一个不可或缺的工具。在日常的Python开发中，它的使用频率已经远超过IDE，对于笔者来说，ipython+vim作为Python开发环境非常高校。
-
----
 
 ### 安装
 
@@ -42,15 +38,11 @@ ipython的安装非常简单，通过pip就可以了。
 
 笔者的工作电脑是Linux，如果你用的是Windows，通常你还需要安装一下pyreadline，通过`pip install pyreadline`就可以安装了。
 
----
-
 ### 使用
 
 在一个Terminal工具（如gnome-terminal）里执行`ipython`就可以进入ipython。
 
 执行`jupyter qtconsole`或`jupyter notebook`就可以打开qtconsole和web notebook了。比较推荐notebook的模式，因为在notebook中可以混合markdown、代码、执行结果和生成的图表，本身就是一份活的文档了。
-
----
 
 ### 特点
 
@@ -69,8 +61,6 @@ jupyter notebook作为交互式的web notebook，可以极大地提高效率，�
 * 可以添加markdown用于说明和文档
 * web形式便于分享
 
----
-
 ### 性能分析
 
 ipython有内置的性能分析方法，可以方便地分析函数的性能，包括：
@@ -85,13 +75,9 @@ ipython有内置的性能分析方法，可以方便地分析函数的性能，�
 * 在ipython中启用：在~/.ipython/profile_default/ipython_config.py中加入`c.TerminalIPythonApp.extensions = [ 'line_profiler', ]`
 * 在ipython中使用`%lprun`
 
----
-
 ## pandas入门
 
 在[利用Python进行数据分析](https://book.douban.com/subject/25779298/)这本书的引言部分有三个例子，我在pandas 0.17.1版本上把他们都实现了一下，通过这三个例子，我们可以一窥pandas数据分析的门径。
-
----
 
 ### 例子-1：分析网页请求数据
 
@@ -105,8 +91,6 @@ import json
 with open('usagov_bitly_data2013-05-17-1368832207') as fp:
     records = map(json.loads, fp)
 ```
-
----
 
 #### 使用pandas来过滤数据
 
@@ -123,8 +107,6 @@ data[(data.tz == '') & (data.al == 'en')]
 
 上面的代码将时区（tz）为空，并且语言（al）为en的数据过滤出来。
 
----
-
 #### 数据清洗
 
 很多时候我们的数据集中的某些数据会存在一些字段的缺失或异常，pandas可以很方便地进行这方面的清洗和处理工作。
@@ -135,8 +117,6 @@ clean_tz[clean_tz == ''] = 'Unknown'
 ```
 
 `fillna`方法将所有没有tz字段的数据的该字段值设置为**Missing**，而第二行代码则将所有tz为空的数据改为**Unknown**。
-
----
 
 #### 按值聚合并排序
 
@@ -151,8 +131,6 @@ clean_tz.value_counts()[:15].plot(kind='barh', figsize=(12, 5))
 
 ![timezone](/assets/tz15.png)
 
----
-
 #### 用户最多的User-Agent
 
 ```python
@@ -161,8 +139,6 @@ agents.value_counts(ascending=True)[-15:].plot(kind='barh', figsize=(12, 5), log
 ```
 
 这里使用dropna丢弃了所有无效的数据，并反序得到最活跃的15个Agent。由于这些数据差异较大，X轴采用对数坐标显示。
-
----
 
 #### 找出Windows和非Windows用户的比例
 
@@ -232,8 +208,6 @@ count_subset.div(count_subset.sum(1), axis=0).plot(kind='barh', stacked=True, fi
 
 ![Windows or Not](/assets/win-or-not.png)
 
----
-
 ### 例子-2：使用pandas来分析电影评分数据
 
 在grouplens上有100万条电影评分数据，这是一个非常有用的数据集合，可以帮助我们发现许多有趣的信息。
@@ -266,8 +240,6 @@ movies = pd.read_table('ml-1m/movies.dat', sep='::', header=None, names=mnames, 
 mldata = pd.merge(pd.merge(ratings, users), movies)
 ```
 
----
-
 #### 得到每部电影按性别划分的评分数据
 
 我们希望对不同性别的观众在评价电影时的数据做一些分析，所以希望得到每部电影按性别划分的评分数据，这里我们需要引入[pivot_table](http://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.pivot_table.html)。
@@ -279,8 +251,6 @@ mldata = pd.merge(pd.merge(ratings, users), movies)
 ```python
 mean_ratings = mldata.pivot_table('rating', index='title', columns=['gender'], aggfunc='mean')
 ```
-
----
 
 #### 只分析有250条以上评分记录的电影数据
 
@@ -305,8 +275,6 @@ sort_by_diff[:10] # 男性与女性分歧最大的10部电影（男性更喜欢�
 mldata.groupby('title')['rating'].std().ix[active_titles].sort_values(ascending=False)[:10] # 不考虑性别因素分歧最大的10部电影
 ```
 
----
-
 ### 例子-3：使用pandas来分析新生儿姓名数据
 
 在https://www.ssa.gov/oact/babynames/limits.html上有美国1880年到现在的出生婴儿姓名数据，每年一个csv格式的数据文件。
@@ -328,8 +296,6 @@ for file_path in glob('names/*.txt'):
 names = pd.concat(pieces, ignore_index=True)
 ```
 
----
-
 #### 每年按性别的出生数
 
 同样借助于pivot_table，我们基于births进行按年聚合，聚合的方式为sum。
@@ -342,8 +308,6 @@ total_births.plot(title='Total births by sex and year', figsize=(12, 5))
 显示如下图：
 
 ![Total births by sex and year](/assets/birth-by-sex-year.png)
-
----
 
 #### 分析某个名字在历史上所占的比例
 
@@ -381,8 +345,6 @@ subset.plot(subplots=True, figsize=(12, 12), grid=False, title='Number of births
 ```
 
 ![Name births per year](/assets/name-birth-per-year.png)
-
----
 
 #### 分析命名是否趋向多样化
 

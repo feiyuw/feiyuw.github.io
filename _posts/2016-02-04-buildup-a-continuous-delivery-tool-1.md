@@ -37,8 +37,6 @@ categories: "ContinuousDelivery"
 
 这里，笔者希望通过一个具体的例子来展示一下如何开发一个持续交付系统。这个进行中的项目叫`lybica`，它的地址在[lybicat@github](http://github.com/lybicat/)，目前它还是一个玩具，将来，谁知道呢？
 
----
-
 ## 1. 从界面开始
 
 ### 1.1 第一个页面
@@ -70,8 +68,6 @@ categories: "ContinuousDelivery"
 1. 触发执行计划的查看和配置页面
 1. 实时查看某一个任务进度的页面
 
----
-
 ### 1.2 执行计划页面
 
 这个页面包含两个基本的功能：查看和编辑。其中编辑又包含新增、修改和删除等功能。我们先看查看功能，它类似于任务列表，所以可以如下图这样实现：
@@ -97,8 +93,6 @@ categories: "ContinuousDelivery"
 
 我们最终的实现将查看和编辑合在了一个页面上，编辑表单默认隐藏，点击编辑按钮才会显示。
 
----
-
 ### 1.3 触发器查看和管理页面
 
 触发执行计划的功能，我们称之为触发器（Trigger）。
@@ -121,8 +115,6 @@ categories: "ContinuousDelivery"
 
 相对于Plan来说，Trigger多了一个disable/enable的功能，其它方面基本一致。
 
----
-
 ### 1.4 Console Output页面
 
 对于实时查看某一个任务的进度和输出，参照Jenkins的命名方式，我们也叫它为`Console Output`。所以这个页面的要求是：
@@ -133,8 +125,6 @@ categories: "ContinuousDelivery"
 可以很简单，如下图：
 
 ![console output]({{ site.url }}/assets/cd-console.png)
-
----
 
 ## 2. 数据的保存
 
@@ -247,8 +237,6 @@ module.exports = {
 * PUT用于更新数据
 * DELETE用于删除数据。
 
----
-
 ## 3. 执行日志的存储
 
 对于一个持续集成系统究竟要保存多少执行日志，一直没有一个定论，因为有的时候执行日志和构建产物会很大，大到一次构建就会产生数十G的日志。而另一方面，由于这个系统使用的频繁，会产生数量庞大的小日志文件，因此对于这些执行日志的存储是必须要关注的一个问题。
@@ -266,8 +254,6 @@ Jenkins在这方面常用的做法是将所有的日志都保存在master上，�
 合适的分布式存储方案还是不少的，在`lybica`项目中我们选用了常见的[HDFS](http://hadoop.apache.org/)。同时为了减少小文件的数量和进行压缩，对每个Task产生的所有日志压缩为ZIP进行存储。而在访问的时候，由于HDFS在随机读取上的限制，我们在服务端缓存需要读取的日志，然后实时解压缩。
 
 具体的实现，可以参照[lybica-hdfs-viewer](https://github.com/lybicat/lybica-hdfs-viewer/)。
-
----
 
 ## 4. 管理执行节点
 
@@ -294,8 +280,6 @@ Jenkins在这方面常用的做法是将所有的日志都保存在master上，�
 
 对于websocket客户端，可以参照[lybica-agent](https://github.com/lybicat/lybica-agent/)。
 
----
-
 ## 5. 配置触发器来产生任务
 
 前面页面设计的时候，提到关于触发器的设计，从数据存储的角度讲，我们保存触发器的类型以及相应的信息就可以了。但是我们需要一个轮询器来对每一个触发器进行轮询，如果发现触发项有更新，就执行与之相关的Plan。
@@ -313,8 +297,6 @@ setInterval(poll, 60000);
 
 更详细的实现，可以参照[cron.js](https://github.com/lybicat/lybica-platform/blob/master/cron.js)。
 
----
-
 ## 6. 实时查看执行的结果
 
 对于单元测试或者其他轻量级的测试来说，测试的时间一般很短，几秒至几分钟就结束了。但是对于端到端的自动化测试或者其他诸如稳定性测试、性能测试等，这个测试时间可以很长，长达数小时至数天。这个时候，对于执行情况的实时查看就变得比较重要了。这里我们比较一下Jenkins和Lybica的两种实现方式。
@@ -331,8 +313,6 @@ Lybica的Platform（可以类比于Jenkins Master）以数据库的形式保存�
 
 * 无论是用户打开的Web页面，还是Agent都是Websocket的client
 * Platform为websocket的server，所有的console数据通过server在各个client间传输
-
----
 
 ## 7. 优雅地部署和升级
 

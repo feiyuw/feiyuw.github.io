@@ -16,14 +16,10 @@ gevent依赖greenlet, 从源码安装的话, 还需要cython的支持和编译li
 1. greenlet的免编译安装包
 1. gevent的免编译安装包
 
----
-
 ## libevent.dll
 
 通过万能的google, 找到了http://www.dll-found.com/libevent-2-0-5.dll_download.html (注意: 该地址可能需要翻墙才能访问)
 笔者的测试环境是windows 7 64bit, 安装了32bit的Python 2.7版本. 因此将下载到的libevent-2-0-5.dll复制到C:\Windows\SysWOW64目录下即可.
-
----
 
 ## greenlet
 
@@ -31,21 +27,15 @@ gevent依赖greenlet, 从源码安装的话, 还需要cython的支持和编译li
 
 通过`pip install greenlet‑0.4.5‑cp27‑none‑win32.whl`安装即可
 
----
-
 ## gevent
 
 步骤同greenlet, 我下的是gevent‑1.0.1‑cp27‑none‑win32.whl
 
 通过`pip install gevent‑1.0.1‑cp27‑none‑win32.whl`安装
 
----
-
 ## gevent-socketio
 
 这个没有什么需要编译的地方, 直接`pip install gevent-socketio`安装就OK了
-
----
 
 ## 共享
 

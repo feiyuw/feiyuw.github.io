@@ -14,8 +14,6 @@ categories: Python
 
 **代理模式**的关键就在代理两个字上，我们以两个例子来看看怎么实现一个代理。
 
----
-
 ### RESTful API
 
 有很多项目Python一边用作Web的后端，提供REST服务，另外又充当client处理脚本，用于同步数据等。
@@ -38,8 +36,6 @@ def fetch_resource(resource_id):
 ```
 
 对于每一个REST操作，我们都会写一段类似的代码，这些代码基本一样，差别的地方可能就在API的地址和HTTP method（POST、GET、PUT等）上。而且后续我们还可能会对这个URL操作进行重试，加入cache等，这样频繁修改不同地方的类似代码实在是太罗嗦了。
-
----
 
 为了减少痛苦，我们引入一个Proxy，所有痛苦的事情都交给它来做。
 
@@ -67,8 +63,6 @@ proxy = GetProxy()
 proxy.user(123) # http://remote.server/api/user/123
 proxy.resource('switch', 456) # http://remote.server/api/resource/switch/456
 ```
-
----
 
 ### 调用系统命令
 
@@ -117,8 +111,6 @@ ls('/')
 在Python中**一切皆是对象**，包括module的import，所以在from myshell import xxx的时候实际上类似于访问myshell.xxx，也就是getattr(myshell, 'xxx')。所以如果myshell模块是一个类的实例，我们就可以借助`__getattr__`来实现系统命令的路由了。
 
 要达到这个目的，我们需要将myshell模块动态替换为一个类的实例，而最后一句`sys.modules[__name__] = _ShellProxy()`就是把myshell模块重写为_ShellProxy的实例。
-
----
 
 
 ### 参考
