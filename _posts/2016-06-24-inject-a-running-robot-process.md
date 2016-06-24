@@ -19,6 +19,14 @@ These requirements were hard to met, as I had no interfaces to interract with th
 
 Fortunatelly we have [pyrasite](http://pyrasite.com/). A tool that can inject code into running python process. If you still do not how it work, take some minutes to watch the video on its homepage.
 
+Install `pyrasite` is a piece of cake `pip install pyrasite`.
+
+To use `pyrasite`, you should enable [ptrace](http://man7.org/linux/man-pages/man2/ptrace.2.html) first.
+
+```sh
+sudo echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+```
+
 Let's write a simple test suite as a demo.
 
 ```robot
