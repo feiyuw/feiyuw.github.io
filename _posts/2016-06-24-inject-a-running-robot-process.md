@@ -29,7 +29,7 @@ sudo echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
 Let's write a simple test suite as a demo.
 
-```robot
+```robotframework
 *** Settings ***
 
 *** Test Cases ***
