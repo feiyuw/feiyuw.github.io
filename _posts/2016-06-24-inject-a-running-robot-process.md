@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Inject a running robotframework process"
-date:   2016-06-24 15:00:00
+date:   2016-06-24 15:00:00 +0800
 categories: TA
 ---
 [Robotframework](https://robotframework.org) is a widely used ATDD framework. Sometime the test suite become very large and complicated. In my company, some suites contain thousands of execution steps and last over 12 hours.
