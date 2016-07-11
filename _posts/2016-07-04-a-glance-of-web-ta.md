@@ -73,30 +73,36 @@ In most time, implementing the testing automation for huge test scenario cost to
 
 Now, `JSON` may be the most popular data structure used in API service, below are two examples written in `NodeJS` and `Python`.
 
-* `restify` module in NodeJS
-    ```python
-    const restify = require('restify');
+#### `restify` module in NodeJS
 
-    let client = restify.createJsonClient('http://127.0.0.1');
-    client.get('/api/actions', (err, req, res, obj) => {console.log(obj)});
-    ```
-* Python related modules
-    * urllib
-        ```python
-        import urllib
-        import json
+```javascript
+const restify = require('restify');
 
-        opener = urllib.urlopen('http://127.0.0.1/api/actions')
-        json.loads(opener.read())
-        ```
-    * requests
-        ```python
-        import requests
+let client = restify.createJsonClient('http://127.0.0.1');
+client.get('/api/actions', (err, req, res, obj) => {console.log(obj)});
+```
 
-        s = requests.session()
-        res = s.get('http://127.0.0.1/api/actions')
-        res.json()
-        ```
+#### Python related modules
+
+##### urllib
+
+```python
+import urllib
+import json
+
+opener = urllib.urlopen('http://127.0.0.1/api/actions')
+json.loads(opener.read())
+```
+
+##### requests
+
+```python
+import requests
+
+s = requests.session()
+res = s.get('http://127.0.0.1/api/actions')
+res.json()
+```
 
 ### "static" page
 
