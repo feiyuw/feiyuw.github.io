@@ -36,7 +36,7 @@ There are many big events of web development during past ~20 years, including we
 * *March 2015* `React Native` open-sourced
 * *May 2015* `HTTP/2` published
 
-If we summarize the core technology stack of these years, we may find, in past 20 years,
+If we summarize the core technology stack of these years, we may find, in past 20 years, there are great progress in web development.
 
 ### Technology stack
 
