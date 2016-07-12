@@ -6,7 +6,7 @@ categories: TA
 ---
 I'm not sure how many people in the world are out of Internet. But Internet did great success in past 20 years, what ever the content and the technology. That is impossible for me to summarize the technologies used in the past 20 years, I can only list the technology I have used or heard, and the related test automation solutions to this technologies.
 
-It's a home work I got from one community of my company, great chanllenge but also a good chance to do a retrospective of myself.
+It's a home work I got from one community of my company, great challenge but also a good chance to do a retrospective of myself.
 
 ## A glance of web development technology
 
@@ -50,7 +50,7 @@ If we summarize the core technology stack of these years, we may find, in past 2
     * `Gmail` and `Google Maps` helped everyone to know the power of AJAX.
     * From that time, the website contained more Javascript code, and frontend engineer became more and more important.
 * Single Page Website
-    * `AngularJS`, `ReactJ` and many other frameworks made `SPA` a fasion technology.
+    * `AngularJS`, `ReactJ` and many other frameworks made `SPA` a fashion technology.
     * Many DOM elements are not from HTML, but created by Javascript dynamically.
     * The Javascript code become much more complex than before.
     * Packager tool and JS compiler widely used.
@@ -129,12 +129,12 @@ And this decision always made in `big` companies.
 
 Why?
 
-This is my suppose, SW development is full of risks, if a critical bug found after software release, most companies will do the root cause analysis. If the root cause is lacking of user similar testing coverage, the related person will take the resposibilities. But if the policy is what ever the risk and investment is, just do the end to end testing. That will lead to the high cost of testing, but less responsibilities, and in big companies, the resource is always not a problem.
+This is my suppose, SW development is full of risks, if a critical bug found after software release, most companies will do the root cause analysis. If the root cause is lacking of user similar testing coverage, the related person will take the responsibilities. But if the policy is what ever the risk and investment is, just do the end to end testing. That will lead to the high cost of testing, but less responsibilities, and in big companies, the resource is always not a problem.
 
 ### Use "webdriver" to test a web site
 
 W3C plan to introduce webdriver as a standard, see https://www.w3.org/TR/webdriver/.
-For most websites, [webdirver](http://www.seleniumhq.org/) is a good functional testing frmeworks.
+For most websites, [webdirver](http://www.seleniumhq.org/) is a good functional testing framework.
 
 As it can:
 
@@ -161,6 +161,7 @@ class MyWebLib(object):
     def __getattr__(self, attr):
         if not attr.startswith('_') and hasattr(self._browser, attr):
             return getattr(self._browser, attr)
+        raise AttributeError
 
     def no_critical_errors(self):
         error_logs = filter(lambda log: log['level'] in ('ERROR', 'SEVERE'), self.console_logs)
@@ -190,12 +191,12 @@ As you see, `webdriver` is very easy to use, you can write the code in the REPL 
 
 Unlike `requests` or `urllib`, `webdriver` will let your test act like a real user. That means not only the response of the HTTP request you fire, but also the resources like css, images and javascript files, and the `onReady` javascript code will be executed as also.
 
-**But** the abstract level is still [DOM](//www.w3.org/DOM/), you can find a button, click it, and fill some fields, submit the form, etc. Everythink you do is based on the `DOM`.
+**But** the abstract level is still [DOM](//www.w3.org/DOM/), you can find a button, click it, and fill some fields, submit the form, etc. Everything you do is based on the `DOM`.
 
 
 ### Test an "AngularJS" or "ReactJS" application
 
-After [AngularJS](//angularjs.org/) and [ReactJS](//facebook.github.io/react/) released, the TA solution based on `DOM` become more and more unconvinient.
+After [AngularJS](//angularjs.org/) and [ReactJS](//facebook.github.io/react/) released, the TA solution based on `DOM` become more and more inconvenient.
 As the modularization of APP, we need to communicate with one `Component`, not one `DOM`.
 
 So the legacy solution may have some issues:
@@ -233,7 +234,7 @@ vx.stop()
 
 Changing your python common code to a RobotFramework library is almost **0** effort. Or you can use exist library [Selenium2Library](//github.com/robotframework/Selenium2Library).
 
-I recommanded you writing your own one, as the interface of webdriver is very simple, and it's quite easy for you to write your own.
+I recommended you writing your own one, as the interface of webdriver is very simple, and it's quite easy for you to write your own.
 
 ## Performance testing related
 
@@ -244,7 +245,7 @@ I recommanded you writing your own one, as the interface of webdriver is very si
 * The critical part (UI rendering or the concurrent user amount)
 * Acceptance criteria
 
-Different application may have different solutions, in most web application, response time and status in large amount of users are the critical criterias.
+Different application may have different solutions, in most web application, response time and status in large amount of users are the critical criteria.
 
 There are many free or commercial related tools, but I prefer using [locust](//locust.io). As it:
 
