@@ -69,12 +69,6 @@ ipython有内置的性能分析方法，可以方便地分析函数的性能，�
 * %timeit  ==>  持续运行100万次，分析函数所用时间
 * %prun  ==>  以cProfile的方式运行函数进行性能分析
 
-除此意外，我们还可以使用[line_profiler](https://github.com/rkern/line_profiler)
-
-* 安装：pip install line_profiler
-* 在ipython中启用：在~/.ipython/profile_default/ipython_config.py中加入`c.TerminalIPythonApp.extensions = [ 'line_profiler', ]`
-* 在ipython中使用`%lprun`
-
 ## pandas入门
 
 在[利用Python进行数据分析](https://book.douban.com/subject/25779298/)这本书的引言部分有三个例子，我在pandas 0.17.1版本上把他们都实现了一下，通过这三个例子，我们可以一窥pandas数据分析的门径。
