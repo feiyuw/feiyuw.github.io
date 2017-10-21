@@ -50,7 +50,7 @@ If we summarize the core technology stack of these years, we may find, in past 2
     * `Gmail` and `Google Maps` helped everyone to know the power of AJAX.
     * From that time, the website contained more Javascript code, and frontend engineer became more and more important.
 * Single Page Website
-    * `AngularJS`, `ReactJ` and many other frameworks made `SPA` a fashion technology.
+    * `AngularJS`, `ReactJS` and many other frameworks made `SPA` a fashion technology.
     * Many DOM elements are not from HTML, but created by Javascript dynamically.
     * The Javascript code become much more complex than before.
     * Packager tool and JS compiler widely used.
