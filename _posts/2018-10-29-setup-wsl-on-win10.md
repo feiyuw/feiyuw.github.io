@@ -129,7 +129,7 @@ Bad：
 
 ## 10. 参考
 
-1. https://huyinjie.xyz/2018/02/17/%E4%BD%BF%E7%94%A8wsl-terminal%E7%BE%8E%E5%8C%96WSL/
-1. https://www.reddit.com/r/bashonubuntuonwindows/comments/8cvr27/docker_is_running_natively_on_wsl/
-1. https://blog.royink.li/post/ls_color_in_wsl
-1. https://medium.com/@leandrw/speeding-up-wsl-i-o-up-than-5x-fast-saving-a-lot-of-battery-life-cpu-usage-c3537dd03c74
+1. [https://huyinjie.xyz/2018/02/17/%E4%BD%BF%E7%94%A8wsl-terminal%E7%BE%8E%E5%8C%96WSL/](https://huyinjie.xyz/2018/02/17/%E4%BD%BF%E7%94%A8wsl-terminal%E7%BE%8E%E5%8C%96WSL/)
+1. [https://www.reddit.com/r/bashonubuntuonwindows/comments/8cvr27/docker_is_running_natively_on_wsl/](https://www.reddit.com/r/bashonubuntuonwindows/comments/8cvr27/docker_is_running_natively_on_wsl/)
+1. [https://blog.royink.li/post/ls_color_in_wsl](https://blog.royink.li/post/ls_color_in_wsl)
+1. [https://medium.com/@leandrw/speeding-up-wsl-i-o-up-than-5x-fast-saving-a-lot-of-battery-life-cpu-usage-c3537dd03c74](https://medium.com/@leandrw/speeding-up-wsl-i-o-up-than-5x-fast-saving-a-lot-of-battery-life-cpu-usage-c3537dd03c74)
