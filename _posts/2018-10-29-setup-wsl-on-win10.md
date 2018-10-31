@@ -6,7 +6,7 @@ categories: DevOps
 ---
 现有工作电脑是只有8G内存的Dell笔记本，操作系统是window10家庭版，由于Linux上钉钉、Office等的支持不太好，又没有Macbook可用，笔者一直以来都是在虚拟机上用Linux来工作，但是8G内存对于后端开发实在不太够用，写代码的时候总是缺乏一种爽快感。
 
-最近发现WSL（windows subsystem for Linux）可以在win10家庭版中启用，经过一番折腾，顺利得把开发调试环境从虚拟机迁移到了WSL中，内存降了不少。这里把笔者得折腾经历记录下来，希望能令有相同需求的小伙伴少走点弯路。
+最近发现WSL（windows subsystem for Linux）可以在win10家庭版中启用，经过一番折腾，顺利得把开发调试环境从虚拟机迁移到了WSL中，内存降了不少。这里把笔者的折腾经历记录下来，希望能令有相同需求的小伙伴少走点弯路。
 
 笔者的WSL目标有：
 
@@ -65,7 +65,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/m
 
 ## 5. 修改主题、颜色和使用powerline字体
 
-1. wsl-terminal支持主题设置，在窗口标题栏右键 -> 选项，即可设置，我设置的是“base16-monokai.minttyrc”
+1. wsl-terminal支持主题设置，在窗口标题栏右键 -> 选项，即可设置，我设置的是“base16-seti-ui.minttyrc”
 1. wsl-terminal默认的配色目录的背景色一片绿，实在太伤眼睛了，修改之：
 ```sh
 dircolors  # 查看当前的颜色配置
@@ -117,7 +117,7 @@ Good:
 
 1. 内存消耗比虚拟机降低了很多很多，之前我的8G内存根本不够用，现在基本在4.8G左右
 1. 可以很方便地操作windows上的文件
-1. 可以使用windows上的服务，如代码服务等
+1. 可以使用windows上的服务，如代理服务等
 1. 启动的服务可以直接用windows上的浏览器访问和调试
 
 Bad：
