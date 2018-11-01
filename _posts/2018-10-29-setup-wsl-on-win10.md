@@ -30,7 +30,7 @@ categories: DevOps
 1. 安装完毕后打开Ubuntu，确保能正确运行，如果出现运行问题，检查WSL是否开启，以及是否忘了重启
 1. 修改软件源为163源
 ```sh
-sudo echo 'deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse
+echo 'deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse
 deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse
 deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse
 deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse
@@ -40,7 +40,7 @@ deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe 
 deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse
 deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse
 deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse
-' > /etc/apt/sources.list
+' > | sudo tee /etc/apt/sources.list
 sudo apt update
 ```
 
@@ -48,7 +48,7 @@ sudo apt update
 
 默认的终端效果很差，我们希望能够有一个类似Linux或Mac上终端效果的替代品，这里我们考虑[wsl-terminal](https://github.com/goreliu/wsl-terminal)。
 
-1. 下载wsl-terminal的最新release，我下载的是：https://github.com/goreliu/wsl-terminal/releases/download/v0.8.11/wsl-terminal-0.8.11.7z
+1. 下载wsl-terminal的最新release，我下载的是：[0.8.11](https://github.com/goreliu/wsl-terminal/releases/download/v0.8.11/wsl-terminal-0.8.11.7z)
 1. 解压缩wsl-terminal到一个ntfs分区的目录下
 1. 点击open-wsl.exe，即可打开wsl terminal。![wsl terminal]({{ site.url }}/assets/wsl/wsl_terminal.png)
 1. 其它设置见wsl-terminal的github主页
@@ -82,14 +82,16 @@ export LS_COLORS
 
 1. 在/etc/apt/sources.list里面加入xenial的docker源，注意：这里不能用bionic的源，因为我们要安装旧版本的docker-ce。
 ```sh
-sudo echo 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable' >> /etc/apt/sources.list
+echo 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable' | sudo tee -a /etc/apt/sources.list
 ```
 1. 安装17.09.0版本的docker-ce，小版本也不能错，不然安装好的docker跑不起来
 ```sh
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -<Paste>
 sudo apt install docker-ce=17.09.0~ce-0~ubuntu  # 这里的版本不能超过17.09.0
 sudo apt-mark hold docker-ce  # 固定docker-ce版本，防止后续更新升级
+sudo usermod -aG docker $USER  # 将当前用户加入docker group
 ```
-1. 用administrator启动wsl-terminal，执行以下命令启动docker服务
+1. 用administrator方式启动wsl-terminal，执行以下命令启动docker服务
 ```sh
 sudo cgroupfs-mount  # 在每次启动docker服务前必须执行cgroupfs-mount
 sudo service docker start
