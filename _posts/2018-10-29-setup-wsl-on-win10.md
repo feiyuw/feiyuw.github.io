@@ -86,7 +86,7 @@ echo 'deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable' |
 ```
 1. 安装17.09.0版本的docker-ce，小版本也不能错，不然安装好的docker跑不起来
 ```sh
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -<Paste>
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo apt install docker-ce=17.09.0~ce-0~ubuntu  # 这里的版本不能超过17.09.0
 sudo apt-mark hold docker-ce  # 固定docker-ce版本，防止后续更新升级
 sudo usermod -aG docker $USER  # 将当前用户加入docker group
