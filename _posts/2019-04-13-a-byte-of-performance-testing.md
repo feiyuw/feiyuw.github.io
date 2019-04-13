@@ -243,4 +243,7 @@ class WebsiteUser(HttpLocust):
 
 这几个注意点基本都是为了性能考虑的，使用对象池减少GC，连接复用减少建连的开销，Buffered Channel让数据消费更顺畅（即不要用共享内存来通信，而是用通信来共享内存），同时能够解决掉一些高并发执行过程中的抖动问题。
 
-实现一个压测工具和实现一个简单高性能服务的要求是一样的，就如同google对SET工程师的未来定义的那样：SET工程师没有未来，他就是研发工程师，有特定要求的研发工程师。
+## 参考
+* [基于Python和gevent实现的压测工具locust](https://locust.io/)
+* [K6 采用golang实现和js作为脚本语言的压测工具](https://github.com/loadimpact/k6)
+* [HTTP压测工具vegeta](https://github.com/tsenart/vegeta)
