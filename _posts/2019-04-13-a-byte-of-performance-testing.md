@@ -227,12 +227,14 @@ class WebsiteUser(HttpLocust):
 * Start master (locust)
 * Start slave
 * Loop:
-*   Master hatching
-*   Slave.OnStart()
-*   Slave running test, sync result to master <zeromq>
-*   Master show stats
-* Master stop spawning
-* Slave.OnStop()
+    * Master hatching
+    * Slave.OnStart()
+    * Slave running test, sync result to master <zeromq>
+    * Master show stats
+    * Master stop spawning
+    * Slave.OnStop()
+* Stop Slave
+* Stop Master
 
 实现注意点：
 * 对象池
