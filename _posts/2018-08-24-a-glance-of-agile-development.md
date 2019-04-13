@@ -97,7 +97,10 @@ scrum最为人所知的就是每日站会。所谓每日站会，是指：
 * 团队成员能力差异较大，且不经常轮换任务
 * 传统的Manager在这个模式下定位模糊，容易成为障碍
 * 项目经理出身的PO过多干预scrum team的具体工作
-需要注意的是：scrum实践中scrum team是自组织的，包括计划、评审和回顾，都是team自身完成的，不需要也不应该有其他人来主导这些事情（像PO，Manager可以参与）。
+
+需要注意的是：
+> scrum实践中scrum team是自组织的，包括计划、评审和回顾，都是team自身完成的，不需要也不应该有其他人来主导这些事情（像PO，Manager可以参与）。
+
 一个完整的scrum框架见下图：
 ![Scrum Framework]({{ site.url }}/assets/agile/scrum-framework.png)
 
@@ -128,6 +131,7 @@ scrum最为人所知的就是每日站会。所谓每日站会，是指：
 ## 做我们产品发布后的第一批用户
 
 ![Facebook CD]({{ site.url }}/assets/agile/facebook-cd.png)
+
 上图是facebook的准持续的“push-from-master”系统。
 功能提交，经过自动化测试系统，会被自动合并入master，master上的变更会被自动部署到内部员工系统上，而后是2%的生产环境，再是100%的生产环境。
 
