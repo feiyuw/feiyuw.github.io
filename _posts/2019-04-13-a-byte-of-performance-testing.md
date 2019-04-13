@@ -2,7 +2,7 @@
 layout: post
 title:  "压力测试简介"
 date:   2019-04-13 16:45:00 +0800
-categories: "Performance Testing"
+categories: "PerformanceTesting"
 ---
 压力测试的相关介绍，涵盖函数的benchmark、接口的压测、简单服务压测、分布式系统压测及压测工具的开发相关内容。
 

@@ -2,7 +2,7 @@
 layout: post
 title:  "自己动手编写持续交付系统（一）"
 date:   2016-02-04 10:00:00
-categories: "Continuous Delivery"
+categories: "ContinuousDelivery"
 ---
 ## 前言
 [持续交付系统](https://en.wikipedia.org/wiki/Continuous_delivery)或者[持续集成系统](https://en.wikipedia.org/wiki/Continuous_integration)是现代软件开发不可或缺的基础设施，尤其在大型项目中，**持续交付系统**的质量和效率往往极大影响开发的质量和效率。许多大型软件项目甚至有一个或多个专门的团队来开发和维护这类系统。另外，**持续交付系统**包含软件研发中的大量一手数据，很好地挖掘这些数据，也可以得到很多有价值的信息。
