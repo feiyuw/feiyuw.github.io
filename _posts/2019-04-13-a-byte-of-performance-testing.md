@@ -223,6 +223,10 @@ class WebsiteUser(HttpLocust):
 * 基于locust golang sdk二次开发，解决locust性能不佳的问题
 * 具体的业务逻辑在slave中实现，master只负责调度和汇总数据
 
+大致架构如下图：
+
+![pef架构图]({{ site.url }}/assets/pef/arch.png)
+
 工作流程:
 * Start master (locust)
 * Start slave
