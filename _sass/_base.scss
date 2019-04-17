@@ -169,7 +169,7 @@ pre {
     padding-left: $spacing-unit;
     @extend %clearfix;
 
-    @include media-query($on-laptop) {
+    @media (min-width: $on-laptop) {
         max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
         max-width:         calc(#{$content-width} - (#{$spacing-unit}));
         padding-right: $spacing-unit / 2;
@@ -219,7 +219,7 @@ pre {
     padding: 5px 25px;
     border-radius: 5px;
     background: #fafad2;
-    @include media-query($on-laptop) {
+    @media (min-width: $on-laptop) {
         position: fixed;
         top: 50px;
         right: 0px;
