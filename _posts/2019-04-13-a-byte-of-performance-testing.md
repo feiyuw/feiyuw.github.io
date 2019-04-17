@@ -64,10 +64,10 @@ BenchmarkEncrypt(b *testing.B) {
 goos: darwin
 goarch: amd64
 pkg: github.com/feiyuw/xxtea
-BenchmarkEncrypt-8          	 3000000	       573 ns/op	     192 B/op	       4 allocs/op
-BenchmarkXXTeaGoEncrypt-8   	 2000000	       663 ns/op	     128 B/op	       3 allocs/op
-BenchmarkDecrypt-8          	 3000000	       525 ns/op	     112 B/op	       3 allocs/op
-BenchmarkXXTeaGoDecrypt-8   	 3000000	       581 ns/op	     128 B/op	       3 allocs/op
+BenchmarkEncrypt-8               3000000               531 ns/op             112 B/op          3 allocs/op
+BenchmarkXXTeaGoEncrypt-8        2000000               650 ns/op             128 B/op          3 allocs/op
+BenchmarkDecrypt-8               3000000               545 ns/op             112 B/op          3 allocs/op
+BenchmarkXXTeaGoDecrypt-8        3000000               581 ns/op             128 B/op          3 allocs/op
 PASS
 ok  	github.com/feiyuw/xxtea	8.772s
 ```
@@ -75,13 +75,13 @@ ok  	github.com/feiyuw/xxtea	8.772s
 上面的输出可以看到：
 * 操作系统是MacOS，CPU是64为的Intel的（goos，goarch）
 * 测试的包名为：github.com/feiyuw/xxtea
-* 共测试了4个用例，其中类似`573 ns/op`表示每个函数调用消耗了573 ns的CPU时间，`192 B/op`表示每个函数调用消耗了192字节的内存，`4 allocs/op`表示在每个函数调用期间发生了4次内存分配
+* 共测试了4个用例，其中类似`531 ns/op`表示每个函数调用消耗了531 ns的CPU时间，`112 B/op`表示每个函数调用消耗了112字节的内存，`3 allocs/op`表示在每个函数调用期间发生了3次内存分配
 
 从这个benchmark结果我们可以看到：
-* 我们的Encrypt函数比另一个实现快了10%多一点，但是内存消耗多了64个字节
-* 我们的Decrypt函数快了10%左右，内存消耗少了16个字节
+* 我们的Encrypt函数比另一个实现快了近20%，内存节省了16个字节
+* 我们的Decrypt函数快了6%左右，内存消耗少了16个字节
 
-这个时候我们就可以做决定了，同时我们要想办法改进Encrypt函数的内存消耗。
+这个时候我们就可以做决定了。
 
 ## 对一个接口的压测
 
