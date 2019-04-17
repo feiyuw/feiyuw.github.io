@@ -163,18 +163,18 @@ pre {
 .wrapper {
     max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
     max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
-    margin-right: auto;
+    margin-right: 250px;
     margin-left: auto;
     padding-right: $spacing-unit;
     padding-left: $spacing-unit;
     @extend %clearfix;
 
-    @media (min-width: $on-laptop) {
+    @include media-query($on-palm) {
         max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
         max-width:         calc(#{$content-width} - (#{$spacing-unit}));
         padding-right: $spacing-unit / 2;
         padding-left: $spacing-unit / 2;
-        margin-right: 250px;
+        margin-right: auto;
         margin-left: auto;
     }
 }
@@ -218,12 +218,9 @@ pre {
 .toc {
     padding: 5px 25px;
     border-radius: 5px;
-    background: #fafad2;
-    @media (min-width: $on-laptop) {
-        position: fixed;
-        top: 50px;
-        right: 0px;
-        max-width: 200px;
-        background: rgba(250, 250, 210, 0.2);
-    }
+    position: fixed;
+    top: 50px;
+    right: 0px;
+    max-width: 200px;
+    background: rgba(250, 250, 210, 0.2);
 }
