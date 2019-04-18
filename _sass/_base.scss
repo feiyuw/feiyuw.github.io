@@ -223,4 +223,9 @@ pre {
     right: 0px;
     max-width: 200px;
     background: rgba(250, 250, 210, 0.2);
+    @include media-query($on-palm) {
+        position: relative;
+        top: 0px;
+        background: none;
+    }
 }
