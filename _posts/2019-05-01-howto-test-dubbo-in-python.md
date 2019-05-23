@@ -53,7 +53,7 @@ print(resp2.data)  # 10
 
 ### 代码结构
 
-dubbo-py的代码很简单，目前也没来得及好好整理，它要求Python3.5以上环境（实际是因为我没有在Python2.7上跑过，有什么问题不清楚），依赖[kazoo](https://kazoo.readthedocs.io/en/latest/)，借助它实现与zookeeper的交互。
+dubbo-py的代码很简单，目前也没来得及好好整理，它要求Python3.6以上环境（对Python3.5和Python2.7的支持在计划中），依赖[kazoo](https://kazoo.readthedocs.io/en/latest/)，借助它实现与zookeeper的交互。
 
 * dubbo
     * server    实现了DubboService类，用于模拟Dubbo Provider，感觉后续名字改成provider更合适
