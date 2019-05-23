@@ -12,17 +12,15 @@ dubbo默认采用hessian2的编解码方式，没有找到现成的库，而转�
 
 当前这个项目还处于部分可用状态，但已经能满足我当前的需求了，如果您遇到问题，欢迎在github上给我提[issue](https://github.com/feiyuw/dubbo-py/issues)。
 
-到目前为止，已经实现的部分有：
-* 大部分hessian2协议的编解码（我用到的那些吧）
-* Python DubboClient调用Java的Dubbo服务
-* Python DubboService可以注册到zookeeper上作为Dubbo Provider
-
-计划实现的：
-* Python DubboClient注册到zookeeper上作为Dubbo Consumer
-* 代码重构，让Python的rpc函数只需要关心调用参数与返回值（和普通函数一样），其它都交给library实现
-* 支持多种服务形式如asyncio
-* 支持Python2.7
-* 更多地单测覆盖
+主要功能的实现情况：
+- [x] 大部分hessian2协议的编解码（我用到的那些吧）
+- [x] Python DubboClient调用Java的Dubbo服务
+- [x] Python DubboService可以注册到zookeeper上作为Dubbo Provider
+- [x] 代码重构，让Python的rpc函数只需要关心调用参数与返回值（和普通函数一样），其它都交给library实现
+- [ ] Python DubboClient注册到zookeeper上作为Dubbo Consumer
+- [ ] 添加AsyncDubboService以支持asyncio
+- [ ] 更多地单测覆盖
+- [ ] 支持Python2.7
 
 ### 示例
 
@@ -32,18 +30,25 @@ from dubbo.server import DubboService
 from dubbo.client import DubboClient
 
 
-def remote_max(request, sock):
-    return sock.sendall(DubboResponse(request.id, DubboResponse.OK, max(request.args[0]), None).encode())
+def remote_max(*args):
+    return max(args)
+
+
+def remote_sum(lst):
+    return sum(lst)
 
 
 service = DubboService(12358, 'demo')
 service.add_method('com.myservice.math', 'max', remote_max)
-service.register('127.0.0.1:2181', '1.0.0')  # register to zookeeper
+service.add_method('com.myservice.math', 'sum', remote_sum)
+# service.register('127.0.0.1:2181', '1.0.0')  # register to zookeeper
 service.start()  # service run in a daemon thread
 
 client = DubboClient('127.0.0.1', 12358)
-resp = client.send_request_and_return_response(service_name='com.myservice.math', method_name='max', service_version='1.0.0', args=[[1, 2, 3, 4]], attachment={})
+resp = client.send_request_and_return_response(service_name='com.myservice.math', method_name='max', args=[1, 2, 3, 4])
 print(resp.data)  # 4
+resp2 = client.send_request_and_return_response(service_name='com.myservice.math', method_name='sum', args=[JavaList([1, 2, 3, 4])])
+print(resp2.data)  # 10
 ```
 
 ### 代码结构
