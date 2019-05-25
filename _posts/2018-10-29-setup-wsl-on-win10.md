@@ -109,28 +109,29 @@ sudo service docker status  # 一次不成功就多试几次
 1. 打开设置 -> 更新和安全 -> Windows安全 -> 病毒和威胁防护，点击病毒和威胁防护设置，点击添加或删除排除项，将上面的目录加入到排除项中。
 ![antirus]({{ site.url }}/assets/wsl/antirus.png)
 
-## 8. 安装tmux、vim等开发工具
+## 8. 安装tmux和neovim
 
 1. 安装tmux和neovim：`sudo apt install tmux neovim`
 1. 相关配置可以参考[笔者的配置](https://github.com/feiyuw/vim.d/)
-1. vim如果需要支持YouCompleteMe和CPSM插件，安装相关library：`sudo apt install libboost-all-dev python3-dev`
+1. neovim如果需要支持YouCompleteMe和CPSM插件，安装相关library：`sudo apt install libboost-all-dev python3-dev`
 
 ## 9. 总结
 
-Good:
+### 优点:
 
 1. 内存消耗比虚拟机降低了很多很多，之前我的8G内存根本不够用，现在基本在4.8G左右
 1. 可以很方便地操作windows上的文件
 1. 可以使用windows上的服务，如代理服务等
 1. 启动的服务可以直接用windows上的浏览器访问和调试
 
-Bad：
+### 问题：
 
 1. 磁盘IO性能一般
 1. 部分命令得不到预期结果，如netstat
 1. Windows剪贴板中的内容无法在Vim中粘贴
+1. `docker exec`无法正常工作，应该还是跟WSL中/proc或者其它地方跟标准Linux不一样有关
 
-总的来说，wsl现在已经比较完善了，一般的开发已经可以胜任。
+总的来说，如果你对docker的依赖度不高，wsl现在已经比较完善了，一般的开发已经可以胜任。
 
 ## 10. 参考
 
