@@ -10,7 +10,7 @@ categories: "GoodCode"
 
 ## 总览
 
-[fasthttp](https://github.com/valyala/fasthttp)是一个纯golang编写的，以高并发、高性能为目的的HTTP library，包括客户端和服务端。相比`net/http`，fasthttp在大部分情况下都拥有更好的性能以及更低的内存占用，但是相比`net/http`，它不支持HTTP/2（对于fasthttp的HTTP/2支持，见 https://github.com/dgrr/http2 项目）。
+[fasthttp](https://github.com/valyala/fasthttp)是一个纯golang编写的，以高并发、高性能为目的的HTTP library，包括客户端和服务端。相比`net/http`，fasthttp在大部分情况下都拥有更好的性能以及更低的内存占用，但是相比`net/http`，它不支持HTTP/2（对于fasthttp的HTTP/2支持，见 [https://github.com/dgrr/http2](https://github.com/dgrr/http2) 项目）。
 
 ## 依赖
 
