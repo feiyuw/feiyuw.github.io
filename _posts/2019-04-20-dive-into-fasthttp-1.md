@@ -424,7 +424,7 @@ s = requests.session()
 print(s.post('http://127.0.0.1', data=b'hello').content)  # b'Hijacked the connection!
 ```
 
-通过wireshark抓包，可以发现服务端事实上回的内容为，如果这时候通过上述session的TCP连接去receive数据，就能得到后面的数据了。
+通过wireshark抓包，可以发现服务端事实上回的内容如下所示，如果这时候通过上述session的TCP连接去receive数据，就能得到后面的数据了。
 
 ```
 POST /hijack HTTP/1.1
