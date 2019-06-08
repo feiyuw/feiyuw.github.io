@@ -13,7 +13,7 @@ fasthttp包含四种Client，分别是：
 * PipelineClient
 * LBClient
 
-我会重点介绍一下HostClient，Client和LBClient各自对HostClient进行了一些封装，PipelineClient相对特殊，实现上的差一点也会介绍一下。
+我会重点介绍一下HostClient，Client和LBClient各自对HostClient进行了一些封装，PipelineClient相对特殊，实现上的差异点也会介绍一下。
 
 ## 两个例子
 
