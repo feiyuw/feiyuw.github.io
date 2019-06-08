@@ -4,7 +4,7 @@ title:  "fasthttp高性能之道（一）"
 date:   2019-04-20 22:00:00 +0800
 categories: "GoodCode"
 ---
-本篇是fasthttp高性能知道的第一篇，我计划用三篇博客来分析一下fasthttp这个库，也帮助自己更好地了解高并发HTTP服务器的设计思路。
+本篇是fasthttp高性能知道的第一篇，我计划用四篇博客来分析一下fasthttp这个库，也帮助自己更好地了解高并发HTTP服务器的设计思路。
 
 2017年第一次接触fasthttp，用它构建了一个http服务，替换之前跑的python服务，在使用过程中对其设计思想和优化思路非常欣赏。2018年，在做压测工具的时候，采用它构建了http的客户端，同样充满惊喜，尤其是内存占用控制的很好。使用中间断断续续地看过一些它的代码，这里做一个总结，代码不多，当是学习一下高并发http框架的实现思路。
 
@@ -371,7 +371,7 @@ func (s *Server) Serve(ln net.Listener) error {
 `*RequestCtx`有一个方法Hijack，它接收一个handler函数，用于对请求的劫持，它是作用在net.Conn对象上，也就是TCP层上的。
 一开始我不明白这玩意儿有什么用，反正都是HTTP请求，一来一回多简单，后来搜索看到有人将其用在gRPC和websocket上，前者不支持HTTP/1.1，通过hijack，可以退化到TCP层实现双向的RPC通信，后者由HTTP切换到TCP协议，也可以通过hijack作为中间人搞点事情。
 
-注意：hijackHandler是在一个单独的goroutine执行的，所以你完全在里面多做点事情，比如做类似long polling这样的工作。
+注意：hijackHandler是在一个单独的goroutine执行的，所以你完全可以在里面多做点事情，比如做类似long polling这样的工作。
 
 看一下官方的例子： 
 ```go
