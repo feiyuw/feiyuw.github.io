@@ -4,7 +4,7 @@ title:  "fasthttp高性能之道（二）"
 date:   2019-05-25 22:00:00 +0800
 categories: "GoodCode"
 ---
-在[fasthttp高性能知道（一）]()中我们简要介绍了fasthttp项目的特点，以及Server端的一些实现思路，本篇将会把关注点从Server端移到Client端，分析一下fasthttp在Client端的实现又有哪些比较有意思的地方。
+在[fasthttp高性能之道（一）](/goodcode/2019/04/20/dive-into-fasthttp-1/)中我们简要介绍了fasthttp项目的特点，以及Server端的一些实现思路，本篇将会把关注点从Server端移到Client端，分析一下fasthttp在Client端的实现又有哪些比较有意思的地方。
 
 fasthttp包含四种Client，分别是：
 
