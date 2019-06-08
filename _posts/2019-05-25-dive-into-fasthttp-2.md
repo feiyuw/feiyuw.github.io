@@ -13,7 +13,9 @@ fasthttp包含四种Client，分别是：
 * PipelineClient
 * LBClient
 
-其中，默认的client即为一个Client对象，对于这几种Client的差异和用法，我们下面会逐一介绍。
+我会重点介绍一下HostClient，Client和LBClient各自对HostClient进行了一些封装，PipelineClient相对特殊，实现上的差一点也会介绍一下。
+
+## 两个例子
 
 首先，和介绍Server一样，我们也来看两个例子：
 
@@ -139,11 +141,146 @@ func main() {
 1. 重复步骤3~4
 1. 结束请求，关闭连接
 
-让那个我们先停下来思考一下，要实现一个高性能的HTTP Client，我们需要注意哪些问题呢
+让那个我们先停下来思考一下，要实现一个高性能的HTTP Client，我们需要注意哪些问题呢？
+
 首先，DNS请求不能太过频繁，如果每次建立连接都要进行DNS解析的话，对DNS服务器的冲击和对请求建连的开销就有点大了。
+
 其次，TCP连接是很昂贵的，我们除了要保证尽可能地复用之外，还需要在连接不需要时，及早将其清理掉。
+
 第三，HTTP的请求和响应是很频繁的，对于Request和Response对象，每次都分配显然是太浪费了，对象池技术在这里非常有用。
+
 第四，如果一个Client同时建立了海量到同一个服务器的连接，那对服务器的压力是很大的，我们应当做一些限制和防范。
+
+
+`fasthttp`为了解决这些问题有做了哪些事情呢？
+
+1. 引入了自己实现的TCPDialer，解决DNS和TCP连接管理的问题，关于这一块，我会在下一篇详细介绍
+1. 对MaxConns、MaxConnDuration、MaxIdleConnDuration、MaxIdemponentCallAttempts都可以进行控制
+1. 对Addr中的地址采用round-robin的方式进行循环
+
+`Do`方法为HostClient执行请求的核心方法，它的代码如下：
+
+```go
+func (c *HostClient) Do(req *Request, resp *Response) error {
+	var err error
+	var retry bool
+	maxAttempts := c.MaxIdemponentCallAttempts
+	if maxAttempts <= 0 {
+		maxAttempts = DefaultMaxIdemponentCallAttempts
+	}
+	attempts := 0
+
+	atomic.AddInt32(&c.pendingRequests, 1)
+	for {
+		retry, err = c.do(req, resp)
+		if err == nil || !retry {
+			break
+		}
+
+		if !isIdempotent(req) {
+			// Retry non-idempotent requests if the server closes
+			// the connection before sending the response.
+			//
+			// This case is possible if the server closes the idle
+			// keep-alive connection on timeout.
+			//
+			// Apache and nginx usually do this.
+			if err != io.EOF {
+				break
+			}
+		}
+		attempts++
+		if attempts >= maxAttempts {
+			break
+		}
+	}
+	atomic.AddInt32(&c.pendingRequests, -1)
+
+	if err == io.EOF {
+		err = ErrConnectionClosed
+	}
+	return err
+}
+
+func (c *HostClient) do(req *Request, resp *Response) (bool, error) {
+	nilResp := false
+	if resp == nil {
+		nilResp = true
+		resp = AcquireResponse()
+	}
+
+	ok, err := c.doNonNilReqResp(req, resp)
+
+	if nilResp {
+		ReleaseResponse(resp)
+	}
+
+	return ok, err
+}
+```
+
+从`Do`的实现可以看到，一开始通过for循环对请求进行重试，这里通过MaxIdemponentCallAttempts这个参数和isIdempotent这个判断，来避免在保证客户端请求正确性的基础上，过多地重试对服务端的冲击。而内部实现`do`则非常简单，基本上是简单封装一下`doNonNilReqResp`
+
+`doNonNilReqResp`的主要实现如下（为阅读方便，省去了一些代码）：
+
+```go
+func (c *HostClient) doNonNilReqResp(req *Request, resp *Response) (bool, error) {
+	// ...
+	atomic.StoreUint32(&c.lastUseTime, uint32(time.Now().Unix()-startTimeUnix))
+
+	resp.Reset()
+
+	// ...
+	cc, err := c.acquireConn()
+	if err != nil {
+		return false, err
+	}
+	conn := cc.c
+
+	resp.parseNetConn(conn)
+
+	// ...
+	bw := c.acquireWriter(conn)
+	err = req.Write(bw)
+
+	// ...
+	c.releaseWriter(bw)
+
+	// ...
+	br := c.acquireReader(conn)
+	// ...
+	c.releaseReader(br)
+
+	if resetConnection || req.ConnectionClose() || resp.ConnectionClose() {
+		c.closeConn(cc)
+	} else {
+		c.releaseConn(cc)
+	}
+
+	return false, err
+}
+```
+
+这才是真正干活的函数，acquireConn方法用于获取一个连接，当连接数过多的时候，它会直接返回错误，这样就对请求数做了限制，同时它会解析DNS和创建到Host的连接，内部实现也对这两块进行了优化，细节可以参照`tcpdialer.go`
+
+之后的writer和reader就实现了数据的发送和读取，他们都用到了对象池的技术。
+
+`if resetConnection || req.ConnectionClose() || resp.ConnectionClose() {`这一行需要注意，当请求方发送了Connection: Close的头或者服务方发送了Connection: Close的HTTP头的情况下，主动关闭连接。一般情况下释放当前连接，留作以后重用就可以了，但是当需要主动关闭连接以释放无用连接的时候，就需要作主动关闭了。
+
+## Client
+
+查看Client结构体定义，可以看到它对HostClient进行了封装，里面包含了host到HostClient指针的映射，即：
+
+```go
+	mLock sync.Mutex
+	m     map[string]*HostClient
+	ms    map[string]*HostClient
+```
+
+所以Do方法也只是对HostClient.Do的一些封装。需要注意的是，有一个mCleaner的协程，它会用于清理HostClient里面的无效连接。具体见Client.mCleaner方法。
+
+[未完待续]
+
 
 ## Reference
 
