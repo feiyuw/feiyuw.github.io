@@ -221,9 +221,16 @@ unset -f bind-git-helper
 
 vim/neovim作为我主要的编辑器已经有超过十年的时间了，可能接下来的十年，它仍然是我的主力编辑器，无论是编写代码还是文档，它都足以胜任，并常有惊喜。我用vim编写markdown博客、robotframework case、Python程序、Go、ReactJS写前端等等等等。
 
-不同于Vs Code、sublime这类图形化的编辑器，vim/neovim在几乎所有的linux发行版上都有，无论在哪个机器上，只要有vim，获取一份配置文件，马上就拥有一个你熟悉的开发环境，那是非常美妙的事情。
+在我看来，它的优点有下面这些：
 
-如果你有兴趣尝试一下，欢迎参考我的配置：[https://github.com/feiyuw/vim.d/blob/master/nvim/init.vim](https://github.com/feiyuw/vim.d/blob/master/nvim/init.vim)
+* 不同于Vs Code、sublime这类图形化的编辑器，vim/neovim在几乎所有的linux发行版上都有，无论在哪个机器上，只要有vim，获取一份配置文件，马上就拥有一个你熟悉的开发环境，那是非常美妙的事情。
+* 快捷键简单、并且专注于编辑器的事情，扩展性非常好，像neovim，你完全可以把它作为一个编辑器内核，在上面创造出一个完整的IDE出来。
+* 只需要一个配置文件，简单清晰。
+* 拥有类似vim-plug这样的插件管理器，和众多的插件贡献者，像vim-go这类插件质量很高。
+
+但同时，如果你经常需要进行单步调试、观察变量这样的事情，那它就不那么合适了，这个时候还是专门的IDE更方便。对我而言，如果工作的方向偏服务端，且有较为完善的单测覆盖，有较好的日志保证，需要调试的情形是极少，甚至可以忽略的。
+
+如果你有兴趣尝试一下在neovim里工作，欢迎参考我的配置：[https://github.com/feiyuw/vim.d/blob/master/nvim/init.vim](https://github.com/feiyuw/vim.d/blob/master/nvim/init.vim)
 
 ## 参考
 
