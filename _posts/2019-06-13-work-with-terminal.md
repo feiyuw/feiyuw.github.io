@@ -123,11 +123,15 @@ nmap <C-g> :Rg<CR>
 为了提升使用体验，通常我们会对fzf做一些配置，比如用[fd](https://github.com/sharkdp/fd)替换find等等。
 另外，大家可能对上面视频中的交互式git操作印象深刻，它其实利用了fzf的preview功能和[bat](https://github.com/sharkdp/bat)工具。
 
-实现上述的效果，安装bat，然后，将下面两行加入到`~/.zshrc`中即可。
+bat是一个rust编写的cat命令的替代品，相比cat，它支持：
+
+* 根据文件类型进行highlight
+* 显示行号
+* 像less命令一样上下翻页
+
+`brew install bat`安装bat，然后将下面两行加入到`~/.zshrc`中。
 
 ```zsh
-brew install bat  # on MacOS
-
 export FZF_DEFAULT_COMMAND="fd --exclude={.git,.idea,.vscode,pkg,node_modules,vendor,bin,build} -H --type f"
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --bind up:preview-up,down:preview-down --preview '(bat --style=numbers --color=always {} || cat {}) 2> /dev/null | head -500'"
 ```
