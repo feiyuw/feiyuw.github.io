@@ -8,7 +8,7 @@ Terminal和键盘是一对神奇的组合，让你双手可以运指如飞，不
 
 比如，下面这样：
 
-[![asciicast](https://asciinema.org/a/Chzur3Ancy1ek5RimXuhS3GDK.svg)](https://asciinema.org/a/Chzur3Ancy1ek5RimXuhS3GDK)
+<script id="asciicast-Chzur3Ancy1ek5RimXuhS3GDK" src="https://asciinema.org/a/Chzur3Ancy1ek5RimXuhS3GDK.js" async></script>
 
 这个视频里用到了好多神器，他们是：
 
