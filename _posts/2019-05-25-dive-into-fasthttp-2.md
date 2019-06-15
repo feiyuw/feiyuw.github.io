@@ -283,7 +283,7 @@ func (c *HostClient) doNonNilReqResp(req *Request, resp *Response) (bool, error)
 
 `PipelineClient`跟`Client`的差别，从名字就可以看出来，跟Client每收到一个Request，都等到Response返回再发送下一个Request不同，PipelineClient会持续的发送Request，同时持续的接收Response，从而很好地提高吞吐率。关于HTTP pipelining技术，可以参照[wiki](https://en.wikipedia.org/wiki/HTTP_pipelining)。
 
-在HTTP/2中，类似的技术为multiplexing，事实上，HTTP/1.1标准下，支持pipelining的server很少，在实际工作中，我从没这么用过，但如果server是可控的，如希望提供高性能的RPC服务，那么使用PipelineClient是有价值的，一般情况下，建议使用Client。
+在HTTP/2中，类似的技术为multiplexing，事实上，HTTP/1.1标准下，支持pipelining的server不少，但browser却很少。而在实际工作中，我从没这么用过，但如果server是可控的，如希望提供高性能的RPC服务，那么使用PipelineClient是有价值的，一般情况下，建议使用Client。
 
 ## LBClient
 
