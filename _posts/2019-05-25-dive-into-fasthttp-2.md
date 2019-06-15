@@ -279,8 +279,79 @@ func (c *HostClient) doNonNilReqResp(req *Request, resp *Response) (bool, error)
 
 所以Do方法也只是对HostClient.Do的一些封装。需要注意的是，有一个mCleaner的协程，它会用于清理HostClient里面的无效连接。具体见Client.mCleaner方法。
 
-[未完待续]
+## PipelineClient
 
+`PipelineClient`跟`Client`的差别，从名字就可以看出来，跟Client每收到一个Request，都等到Response返回再发送下一个Request不同，PipelineClient会持续的发送Request，同时持续的接收Response，从而很好地提高吞吐率。关于HTTP pipelining技术，可以参照[wiki](https://en.wikipedia.org/wiki/HTTP_pipelining)。
+
+在HTTP/2中，类似的技术为multiplexing，事实上，HTTP/1.1标准下，支持pipelining的server很少，在实际工作中，我从没这么用过，但如果server是可控的，如希望提供高性能的RPC服务，那么使用PipelineClient是有价值的，一般情况下，建议使用Client。
+
+## LBClient
+
+```go
+import (
+    "fmt"
+    "log"
+
+    "github.com/valyala/fasthttp"
+)
+
+var (
+    lbc fasthttp.LBClient
+)
+
+func main() {
+    servers := []string{
+        "127.0.0.1:8888",
+        "127.0.0.1:9999",
+    }
+
+    for _, addr := range servers {
+        c := &fasthttp.HostClient{
+            Addr: addr,
+        }
+        lbc.Clients = append(lbc.Clients, c)
+    }
+
+    var req fasthttp.Request
+    var resp fasthttp.Response
+    for i := 0; i < 10; i++ {
+        url := fmt.Sprintf("http://abcedfg/foo/bar/%d", i)
+        req.SetRequestURI(url)
+        if err := lbc.Do(&req, &resp); err != nil {
+            log.Printf("Error when sending request: %s", err)
+            continue
+        }
+        if resp.StatusCode() != fasthttp.StatusOK {
+            log.Printf("unexpected status code: %d. Expecting %d", resp.StatusCode(), fasthttp.StatusOK)
+            continue
+        }
+
+        log.Println(resp.Body())
+    }
+}
+```
+
+起两个server，一个在8888端口，一个在9999端口，然后执行上面的代码，通过log可以看到5个请求发给了8888端口，5个请求发给了9999端口。
+
+而如果关掉9999端口的服务，再次测试，会发现，10个请求都发送给了8888端口。
+
+LBClient其实只是在HostClient的基础上加入了轮询及healthcheck，让请求在不同的client上轮转，当某一个client出问题（比如下线）的时候，调度到其它client上。实现上，它在`DoDeadline`之外，多了一次Healthy检查，仅此而已。
+```go
+func (c *lbClient) DoDeadline(req *Request, resp *Response, deadline time.Time) error {
+	err := c.c.DoDeadline(req, resp, deadline)
+	if !c.isHealthy(req, resp, err) && c.incPenalty() {
+		// Penalize the client returning error, so the next requests
+		// are routed to another clients.
+		time.AfterFunc(penaltyDuration, c.decPenalty)
+	}
+	return err
+}
+
+```
+
+很多人可能已经想到了，借助LBClient，可以很容易地实现一个反向代理服务，在fasthttp高性能知道的第四篇，我们会尝试实现一个这样的服务。
+
+关于Client就介绍到这里，下一篇我们将深入到bytebufferpool，tcpdialer这样的模块内部，看下fasthttp为了提高性能，是怎么在内存分配，连接管理等等地方进行优化的。
 
 ## Reference
 
