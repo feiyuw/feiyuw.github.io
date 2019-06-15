@@ -215,6 +215,7 @@ unset -f bind-git-helper
 ```
 
 在一个git管理的项目里试一下：Ctrl+g Ctrl+f，Ctrl+g Ctrl+v，Ctrl+g Ctrl+t，Ctrl+g Ctrl+r，Ctrl+g Ctrl+g，看看会出现什么吧。
+fzf是支持多选的，在选择窗口试着按下[Tab]看看。
 
 ### 集成ripgrep查找内容
 
