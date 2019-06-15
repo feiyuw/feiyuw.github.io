@@ -162,7 +162,7 @@ gf_() {
   cut -c4- | sed 's/.* -> //'
 }
 
-gb_() {
+gv_() {
   is_in_git_repo || return
   git branch -a --color=always | grep -v '/HEAD\s' | sort |
   fzf-down --ansi --multi --tac --preview-window right:70% \
@@ -210,9 +210,11 @@ bind-git-helper() {
     eval "bindkey '^g^$c' fzf-g$c-widget"
   done
 }
-bind-git-helper f b t r g
+bind-git-helper f v t r g
 unset -f bind-git-helper
 ```
+
+在一个git管理的项目里试一下：Ctrl+g Ctrl+f，Ctrl+g Ctrl+v，Ctrl+g Ctrl+t，Ctrl+g Ctrl+r，Ctrl+g Ctrl+g，看看会出现什么吧。
 
 ### 集成ripgrep查找内容
 
