@@ -355,4 +355,4 @@ func (c *lbClient) DoDeadline(req *Request, resp *Response, deadline time.Time) 
 
 ## Reference
 
-* [fasthttp client internals](https://youtu.be/fg3JPUswiek)
+* [fasthttp client internals](https://weekly-geekly.github.io/articles/443378/index.html)
