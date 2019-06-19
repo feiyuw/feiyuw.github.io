@@ -72,7 +72,7 @@ curl https://raw.githubusercontent.com/changyuheng/zsh-interactive-cd/master/zsh
 
 为了跟iterm和vim更好地集成，我们一般需要做些配置。配置文件的路径在`~/.tmux.conf`，以下是我的配置文件：
 
-```
+``` tmux
 # escape-time to 10
 set-option -sg escape-time 10
 
@@ -92,6 +92,34 @@ bind -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
 bind -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
 bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
 bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
+
+setw -q -g utf8 on
+
+#### statusbar ####
+set -g status-interval 10
+set -g status-justify centre # center align window list
+set -g status-left '#{battery_status_bg} Batt: #{battery_icon} #{battery_percentage} #{battery_remain}'
+set -g status-right '#{uptime} | CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '
+
+# default statusbar colors
+set -g status-bg colour178
+set -g status-fg black
+
+# activity
+set -g monitor-activity on
+set -g visual-activity off
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+# user plugins
+set -g @plugin 'robhurring/tmux-uptime'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tmux-plugins/tmux-battery'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'
 ```
 
 我用到的配置很少，主要是配置了在vim窗口和tmux pane间移动的时候使用相同的快捷键。
