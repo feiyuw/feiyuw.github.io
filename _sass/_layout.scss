@@ -184,11 +184,9 @@
 .pagination {
     text-align: left;
     > .previous, > .next {
-        background-color: #eee8d5;
         padding: 5px 25px;
     }
     .page_number {
-        background-color: #eee8d5;
         padding: 5px;
         margin-left: -5px;
         margin-right: -5px;
@@ -203,7 +201,6 @@
     > li {
         margin-bottom: $spacing-unit;
         margin-bottom: 10px;
-        background-color: #eee8d5;
         padding-top: 10px;
         padding-bottom: 5px;
         padding-left: 15px;
@@ -211,7 +208,7 @@
     }
 
     > li:hover {
-        background-color: #d6d6c6;
+        background-color: #D7E9EA;
     }
 
     p {
@@ -232,42 +229,21 @@ a.post-link {
     line-height: normal;
     display: inline-block;
     margin-top: 0;
-    margin-left: -25px;
-    padding: 5px 10px 5px 15px;
-    background-color: $title-background-color;
-    opacity: 0.8;
-    color: lightgoldenrodyellow;
+    padding: 5px 0px;
     text-decoration: none;
+    color: $text-color;
 }
-a.post-link::after {
-    content: " ";
-    display: block;
-    border-bottom: 4px solid darken($title-background-color, 25%);
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: -4px;
-    border-left: 10px solid transparent;
-    left: 0;
-}
-
 
 /**
  * Posts
  */
 .post-title {
     font-size: 42px;
-    letter-spacing: -1px;
     line-height: 1;
     line-height: normal;
     display: inline-block;
     margin-top: 0;
-    margin-left: -15px;
-    padding: 5px 10px 5px 15px;
-    background-color: $title-background-color;
-    opacity: 0.8;
-    color: lightgoldenrodyellow;
-    border-radius: 5px;
+    padding: 5px 0px;
 
     @include media-query($on-laptop) {
         font-size: 36px;
@@ -276,10 +252,10 @@ a.post-link::after {
 
 .post-content {
     margin-bottom: $spacing-unit;
-    background-color: #eee8d5;
     padding: 15px;
     margin-left: -15px;
     border-radius: 5px;
+    background-color: white;
 
     h1, h2, h3, h4, h5, h6 {
         padding: 0.5em;
@@ -311,7 +287,6 @@ a.post-link::after {
 
     ol, ul {
         padding: 15px 30px;
-        background-color: lightgoldenrodyellow;
         border-radius: 5px;
     }
 }
@@ -334,16 +309,16 @@ a.post-prev, a.post-next {
     text-decoration: none;
 }
 .post-category {
-    background-color: #eee8d5;
     padding: 5px;
     margin-left: 25px;
     border-radius: 5px;
 }
 .category-list {
-    padding-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
 .site-category {
-    background-color: #eee8d5;
+    background-color: #B3D6DD;
     border-radius: 5px;
     margin-right: 10px;
     padding: 5px 10px;
