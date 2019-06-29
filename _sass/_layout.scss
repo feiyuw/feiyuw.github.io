@@ -293,8 +293,6 @@ a.post-link {
 .post-prev, .post-next {
     margin-bottom: 5px;
     padding: 5px 10px 5px 15px;
-    background-color: $title-background-color;
-    opacity: 0.8;
     border-radius: 5px;
     font-size: 1.2em;
 }
@@ -305,7 +303,6 @@ a.post-link {
     float: right;
 }
 a.post-prev, a.post-next {
-    color: lightgray;
     text-decoration: none;
 }
 .post-category {
