@@ -17,3 +17,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-gist
+  - jekyll-mermaid
+
+mermaid:
+  src: "https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.1.0/mermaid.min.js"
