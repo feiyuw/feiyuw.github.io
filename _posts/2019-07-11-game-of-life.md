@@ -29,6 +29,9 @@ categories: "Karta"
 <div>
   <div id="board" width='100%'></div>
   <style>
+    svg {
+      width: 100%;
+    }
     circle[data="1"] {
       fill: green;
     }
