@@ -23,6 +23,7 @@ categories: "Karta"
 下面是一个执行示例，你也可以访问[Online Demo](/langtonant/index.html)。
 
 <div>
+  <div id="board" width='100%'></div>
   <style>
     svg {
       width: 100%;
