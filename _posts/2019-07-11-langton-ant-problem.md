@@ -23,6 +23,7 @@ categories: "Karta"
 下面是一个执行示例，你也可以访问[Online Demo](/langtonant/index.html)。
 
 <div>
+  <label>Steps: </label><span id="steps">0</span>
   <div id="board" width='100%'></div>
   <style>
     svg {
@@ -41,7 +42,6 @@ categories: "Karta"
   <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.13.1/lodash.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.1.1/d3.min.js"></script>
   <script src='/langtonant/index.d3.js'></script>
-  <label>Steps: </label><span id="steps">0</span>
   <script>
     const board = new Board('#board')
     const steps = document.getElementById("steps")
