@@ -54,10 +54,13 @@ categories: "Karta"
     board.render(game.getLives())
     const handler = () => {
       game.nextRound()
+      if (game.isStopped()) {
+        return
+      }
       stepCount++
       board.render(game.getLives())
       steps.innerText = stepCount
-      intervalEvt = setTimeout(handler, delay)
+      setTimeout(handler, delay)
     }
     handler()
   </script>
