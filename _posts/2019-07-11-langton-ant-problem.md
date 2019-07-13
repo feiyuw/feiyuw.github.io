@@ -45,16 +45,13 @@ categories: "Karta"
   <script>
     const board = new Board('#board')
     const steps = document.getElementById("steps")
-    let stepCount = 0
-
     const rows = 40
     const cols = 80
     const delay = 500
     const game = new LangtonAnt(rows, cols, 0.0)
-
+    let stepCount = 0
     game.initBoard()
     board.render(game.getLives())
-
     const handler = () => {
       game.nextRound()
       stepCount++
@@ -62,7 +59,6 @@ categories: "Karta"
       steps.innerText = stepCount
       intervalEvt = setTimeout(handler, delay)
     }
-
     handler()
   </script>
 </div>

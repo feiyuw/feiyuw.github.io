@@ -48,16 +48,13 @@ categories: "Karta"
     const cols = 60
     const delay = 500
     const game = new GameOfLife(rows, cols)
-
     game.initBoard()
     board.render(game.getLives())
-
     const handler = () => {
       game.nextRound()
       board.render(game.getLives())
       setTimeout(handler, delay)
     }
-
     handler()
   </script>
 </div>
