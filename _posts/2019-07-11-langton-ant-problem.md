@@ -12,9 +12,9 @@ categories: "Karta"
 兰顿蚂蚁是另一个简单又有名的细胞自动机，诞生于1986年，同样是二维的，规则非常简单：
 
 > 在平面上的正方形格被填上黑色或白色。在其中一格正方形有一只“蚂蚁”。它的头部朝向上下左右其中一方。
-
-> 若蚂蚁在白格，右转90度，将该格改为黑格，向前移一步；
-> 若蚂蚁在黑格，左转90度，将该格改为白格，向前移一步。
+>
+>* 若蚂蚁在白格，右转90度，将该格改为黑格，向前移一步；
+>* 若蚂蚁在黑格，左转90度，将该格改为白格，向前移一步。
 
 ## 运行示例
 
@@ -23,7 +23,7 @@ categories: "Karta"
 下面是一个执行示例，你也可以访问[Online Demo](/langtonant/index.html)。
 
 <div>
-  <div style="float:right"><label>Steps: </label><span id="steps">0</span><div>
+  <div style="float:right"><label>Steps: </label><span id="steps">0</span></div>
   <div id="board" width='100%'></div>
   <style>
     svg {
