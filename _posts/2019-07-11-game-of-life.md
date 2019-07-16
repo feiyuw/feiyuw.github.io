@@ -22,7 +22,7 @@ categories: "Karta"
 * 当前细胞为存活状态时，当周围有超过3个存活细胞时，该细胞变成死亡状态。（模拟生命数量过多）
 * 当前细胞为死亡状态时，当周围有3个存活细胞时，该细胞变成存活状态。（模拟繁殖）
 
-## 运行示例
+## Web运行示例
 
 下面是一个执行示例，你也可以访问[Online Demo](/gameoflife/index.d3.html)。
 
@@ -58,3 +58,9 @@ categories: "Karta"
     handler()
   </script>
 </div>
+
+## 终端运行示例
+
+以下为一个golang版本在终端运行的示例：
+
+<script id="asciicast-8yhK5o7mOKfJh0qXeer65kebM" src="https://asciinema.org/a/8yhK5o7mOKfJh0qXeer65kebM.js" async></script>
