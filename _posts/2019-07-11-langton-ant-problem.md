@@ -65,3 +65,9 @@ categories: "Karta"
     handler()
   </script>
 </div>
+
+## 终端运行示例
+
+以下为golang版本在终端运行的示例：
+
+<script id="asciicast-2qrizlvQHwE6ynwlxdrC8iOMY" src="https://asciinema.org/a/2qrizlvQHwE6ynwlxdrC8iOMY.js" async></script>
