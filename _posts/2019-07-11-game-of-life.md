@@ -22,6 +22,10 @@ categories: "Karta"
 * 当前细胞为存活状态时，当周围有超过3个存活细胞时，该细胞变成死亡状态。（模拟生命数量过多）
 * 当前细胞为死亡状态时，当周围有3个存活细胞时，该细胞变成存活状态。（模拟繁殖）
 
+## 参考代码
+
+[game of life](https://github.com/feiyuw/gameoflife)
+
 ## Web运行示例
 
 下面是一个执行示例，你也可以访问[Online Demo](/gameoflife/index.d3.html)。
