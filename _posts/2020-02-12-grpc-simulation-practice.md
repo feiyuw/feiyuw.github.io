@@ -230,21 +230,21 @@ simgo同样提供了对grpc server的模拟支持，以单元测试为例：
 ```go
 import (
   "testing"
-  
-	"github.com/feiyuw/simgo/protocols"
+
+  "github.com/feiyuw/simgo/protocols"
 )
 
 func TestAppWithSimGrpc(t *testing.T) {
-  // create simulated grpc server
-  s, _ := NewGrpcServer(":4999", []string{"echo.proto", "helloworld.proto"})
+	// create simulated grpc server
+	s, _ := NewGrpcServer(":4999", []string{"echo.proto", "helloworld.proto"})
 	s.SetMethodHandler("helloworld.Greeter.SayHello", func(in *dynamic.Message, out *dynamic.Message, stream grpc.ServerStream) error {
 		out.SetFieldByName("message", in.GetFieldByName("name"))
 		return nil
 	})
 	s.Start()
-  defer s.Stop()
-  
-  // test App
+	defer s.Stop()
+
+	// test App
 }
 ```
 
