@@ -123,17 +123,17 @@ type GreeterServer interface {
 
 1. 查看服务或者proto文件提供的grpc接口
 
-   ![image-20200211152833205](/Users/zhang/Library/Application Support/typora-user-images/image-20200211152833205.png)
+   ![service]({{ site.url }}/assets/grpc/grpc_service.png)
 
    这里第二个服务开启了[ServerReflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md)。
 
 2. 查看某个接口的方法
 
-   ![image-20200211153022160](/Users/zhang/Library/Application Support/typora-user-images/image-20200211153022160.png)
+   ![method]({{ site.url }}/assets/grpc/grpc_method.png)
 
 3. 访问某个方法
 
-   ![image-20200211153259688](/Users/zhang/Library/Application Support/typora-user-images/image-20200211153259688.png)
+   ![invoke]({{ site.url }}/assets/grpc/grpc_invoke.png)
 
 ## 测试grpc服务
 
