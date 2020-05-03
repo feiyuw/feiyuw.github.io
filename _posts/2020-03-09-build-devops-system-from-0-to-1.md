@@ -591,4 +591,5 @@ Tao这个工具最后包含**6340**行Python代码和**6386**行JavaScript代码
 从工具的角度讲，它以极小的代价，很好地支撑了团队的DevOps需求和研发效能提升。
 
 让我用一张图来结束吧。
+
 ![one step]({{ site.url }}/assets/devops/one_step.png)
