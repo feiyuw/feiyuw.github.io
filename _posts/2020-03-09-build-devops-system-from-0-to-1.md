@@ -430,9 +430,11 @@ async def sync_stories_from_tapd(product):
 
 ![Feature Portal]({{ site.url }}/assets/devops/feature_portal.png)
 
+
 开始开发后，相关的开发信息，如与之相关的模块，最新持续集成的状态等，也都会汇总到看板上，方便特性开发相关的人员查看。
 
 ![Feature Develop]({{ site.url }}/assets/devops/feature_dev.png)
+
 
 而作为一个迭代，则有一个版本号，且包含多个特性交付，因此，这些信息都会汇总到迭代的看板上。
 
@@ -462,6 +464,7 @@ async def sync_stories_from_tapd(product):
 
 ![cumulative flow diagram]({{ site.url }}/assets/devops/cum_flow_chart.png)
 
+
 累积流图信息非常丰富，除了可以看到我们每个阶段的完成情况，还可以看到我们的工作方式，是否产生堆积，交付效率在上升还是在下降。但为了保证数据客观有效，切记**不要设KPI**。
 
 ### 对接grafana
@@ -473,10 +476,14 @@ async def sync_stories_from_tapd(product):
 #### GET /api/v1/grafana/metrics/find （交互）
 
 这个接口用于设置查询参数，如选择应用，版本号等，如下图:
+
 ![grafana variable]({{ site.url }}/assets/devops/grafana_variable.png)
 
+
 其实际是通过如下的配置来调用查询的:
+
 ![grafana query]({{ site.url }}/assets/devops/grafana_query.png)
+
 
 最后，通过调用对应的函数，来进行查询。
 
