@@ -17,6 +17,9 @@ layout: default
           <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
         </h2>
         {{ post.excerpt }}
+        {% if post.excerpt != post.content %}
+          <a class="button" href="{{ post.url | prepend: site.baseurl }}">Read more</a>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>
